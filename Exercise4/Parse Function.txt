@@ -23,6 +23,7 @@
 
 #include "serial.h"
 #include "stm32f303xc.h"
+#include "led_display.c"
 
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
