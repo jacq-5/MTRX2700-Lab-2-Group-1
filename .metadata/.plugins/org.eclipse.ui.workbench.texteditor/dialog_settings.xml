@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<item key="replaceBarOpen" value="false"/>
+	<list key="searchhistory">
+		<item value="USART1_PORT"/>
+		<item value="USART1"/>
+		<item value="IRQHandler"/>
+		<item value="buffer"/>
+		<item value="EXTI0_IRQHandler"/>
+		<item value="EXTI25"/>
+		<item value="EXTI5"/>
+	</list>
+</section>
