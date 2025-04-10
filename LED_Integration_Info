@@ -1,0 +1,51 @@
+In main
+// Simulate receiving "10001010" from serial
+const char *received_led_pattern = "10001010";
+    
+// Convert binary string to uint8_t
+uint8_t led_value = binary_string_to_uint8(received_led_pattern);
+
+// Set LED pattern on GPIOE (PE8–15)
+set_led_state(led_value);
+
+
+Extra functions: 
+Convert binary to uint8: 
+// Converts a binary string (e.g. "10001010") to a uint8_t value
+uint8_t binary_string_to_uint8(const char *str) {
+    uint8_t result = 0;
+    for (int i = 0; i < 8 && str[i] != '\0'; i++) {
+        result <<= 1;                      // Shift left to make room for next bit
+        if (str[i] == '1') result |= 1;    // Add a 1 bit if needed
+    }
+    return result;
+}
+
+
+Existing functions: 
+To call in main and include in integration (from original exercise_1): 
+enable_clocks();            // Enables GPIO clocks (GPIOE for LEDs)
+initialise_digital_io();    // Sets PE8–PE15 as output mode
+set_led_state(0x00);        // (Optional) Initializes LED state to known OFF state
+
+
+Example main: 
+int main(void) {
+    // === Init GPIO and LEDs ===
+    enable_clocks();
+    initialise_digital_io();
+
+    // Optional: clear LEDs initially
+    set_led_state(0x00);
+
+    // === Simulate received binary pattern ===
+    const char *received_led_pattern = "10001010";
+    uint8_t led_value = binary_string_to_uint8(received_led_pattern);
+
+    // Set the LEDs
+    set_led_state(led_value);
+
+    while (1) {
+        // Main loop — could wait for new serial data here
+    }
+}
