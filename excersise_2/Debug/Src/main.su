@@ -1,2 +1,6 @@
-../Src/main.c:32:6:finished_transmission	24	static
-../Src/main.c:43:5:main	112	static
+/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc/core_cm4.h:1688:22:__NVIC_EnableIRQ	16	static
+/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc/core_cm4.h:1816:22:__NVIC_SetPriority	16	static
+../Src/main.c:40:6:finished_transmission	16	static
+../Src/main.c:50:6:USART1_EXTI25_IRQHandler	8	static
+../Src/main.c:76:6:enable_interrupt	8	static,ignoring_inline_asm
+../Src/main.c:94:5:main	16	static

@@ -15,10 +15,8 @@ struct _SerialPort {
 	volatile uint32_t SerialPinSpeedValue;
 	volatile uint32_t SerialPinAlternatePinValueLow;
 	volatile uint32_t SerialPinAlternatePinValueHigh;
-	void (*completion_function)(uint32_t);
+	void (*completion_function)(uint8_t *, uint32_t);
 };
-
-
 
 // instantiate the serial port parameters
 //   note: the complexity is hidden in the c file
@@ -34,10 +32,19 @@ SerialPort USART1_PORT = {USART1,
 		0x00 // default function pointer is NULL
 		};
 
+//definitions for TXI
+uint8_t *send_data = "send it!!";
+uint8_t txIndex = 0;
+uint8_t txLength = 9;
+
+//definitions for double buffer
+uint8_t uartKernel = 0;
+uint8_t uartUser = 1;
+uint8_t bufferCounter[2];
 
 // InitialiseSerial - Initialise the serial port
 // Input: baudRate is from an enumerated set
-void SerialInitialise(uint32_t baudRate, SerialPort *serial_port, void (*completion_function)(uint32_t)) {
+void SerialInitialise(uint32_t baudRate, SerialPort *serial_port, void (*completion_function)(uint8_t *, uint32_t)) {
 
 	serial_port->completion_function = completion_function;
 
@@ -89,7 +96,6 @@ void SerialInitialise(uint32_t baudRate, SerialPort *serial_port, void (*complet
 		break;
 	}
 
-
 	// enable serial port for tx and rx
 	serial_port->UART->CR1 |= USART_CR1_TE | USART_CR1_RE | USART_CR1_UE;
 }
@@ -97,13 +103,13 @@ void SerialInitialise(uint32_t baudRate, SerialPort *serial_port, void (*complet
 
 void SerialOutputChar(uint8_t data, SerialPort *serial_port) {
 
-	while((serial_port->UART->ISR & USART_ISR_TXE) == 0){
+	while((serial_port->UART->ISR & USART_ISR_TXE) == 0){		//check ready to transmit flag
 	}
 
-	serial_port->UART->TDR = data;
+	serial_port->UART->TDR = data;		//load data into blank
 }
 
-void SerialInputChar(uint8_t *data, SerialPort *serial_port) {
+void SerialInputChar(uint8_t *data, SerialPort *serial_port) { //blank maybe add
 
 	//serial_port->UART->ICR |= USART_ICR_FECF | USART_ICR_ORECF;
 	//uint8_t test = serial_port->UART->ISR & USART_ISR_RXNE;
@@ -129,51 +135,116 @@ void SerialInputChar(uint8_t *data, SerialPort *serial_port) {
 
 
 void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+	uint8_t counter = 0;
 
-	uint32_t counter = 0;
 	while(*pt) {
 		SerialOutputChar(*pt, serial_port);
 		counter++;
 		pt++;
 	}
 
-	serial_port->completion_function(counter);
+	//serial_port->completion_function(pt, counter);
 }
 
-void SerialInputString(uint8_t *pt, SerialPort *serial_port) {
+void SerialInputString(uint8_t *pt, SerialPort *serial_port, uint8_t terminating) {
 	uint32_t counter = 0;
-		/*while(*(pt-1) != '#') {
-			*pt = SerialInputChar(serial_port);
-			counter++;
-			pt++;
-		}
+	uint8_t *start_of_string = pt;
 
-		serial_port->completion_function(counter);*/
 
 	    // Read first character
 	    SerialInputChar(pt, serial_port);
 	    counter++;
 
 	    // Keep reading until '#' is received
-	    while (*pt != '#') {
+	    while (*pt != terminating) {
 	        pt++;  // Move pointer
 	        SerialInputChar(pt, serial_port);
 	        counter++;
 	    }
 
-	    serial_port->completion_function(counter);
+	    serial_port->completion_function(start_of_string, counter);
 }
 
-/*void SerialInputString(uint8_t *pt, SerialPort *serial_port) {
-	uint8_t counter = 0;
-		while(*(pt+counter-1) != '#') {
-			SerialInputChar(pt + counter, serial_port);
-			counter++;
 
+
+void InterruptOutputChar(){
+	while((USART1_PORT.UART->ISR & USART_ISR_TXE) == 0){
 		}
+	if (txIndex < txLength) {
+		USART1_PORT.UART->TDR = send_data[++txIndex];
+	}
+	else {
+		// Transmission complete, disable TXE interrupt
+		USART1->CR1 &= ~USART_CR1_TXEIE;
+	}
 
-		serial_port->completion_function(counter);
-}*/
+}
+
+void InterruptOutputString(){
+		when_sending_data = &InterruptOutputChar;
+
+		SerialOutputChar(send_data[txIndex], &USART1_PORT);
+
+		USART1->CR1 |= USART_CR1_TXEIE; //enable transmit interrupt
+
+}
+
+void InterruptInputString(uint8_t *buffer, SerialPort *serial_port){
+	if ((serial_port->UART->ISR & USART_ISR_RXNE) != 0){
+		*buffer = (uint8_t)(serial_port->UART->RDR);
+	}
+
+}
+
+void SerialInputStringdb(uint8_t buffer[][32], SerialPort *serial_port) {
+
+	    // Read first character
+	   /* SerialInputChar(&buffer[uartKernel][bufferCounter[uartKernel]], serial_port);
+	    bufferCounter[uartKernel] ++;
+
+	    // Keep reading until '#' is received
+	    while (buffer[uartKernel][bufferCounter[uartKernel]-1] != terminating) {
+	    	SerialInputChar(&buffer[uartKernel][bufferCounter[uartKernel]], serial_port);
+	    	bufferCounter[uartKernel] ++;
+	    }*/
+
+	    if ((serial_port->UART->ISR & USART_ISR_RXNE) != 0){
+	    	buffer[uartKernel][bufferCounter[uartKernel]] = (uint8_t)(serial_port->UART->RDR);
+	    	bufferCounter[uartKernel] ++;
+	    }
+
+	   /* if(buffer[uartKernel][bufferCounter[uartKernel] - 1] == '#'){
+	    	    switch_buffers();
+	    }*/
+
+
+}
+
+void InputLogic(uint8_t buffer[][32]){
+	if (bufferCounter[uartUser] > 0)
+	{
+		for(int i = 0; i <= bufferCounter[uartUser]; i++){
+				SerialOutputChar(buffer[uartUser][i], &USART1_PORT);
+
+			}
+	}
+	switch_buffers();
+
+}
+
+void switch_buffers(){
+	uartUser = (!uartUser) & 0x01;
+	uartKernel = (!uartKernel) & 0x01;
+
+	// Need to reset the counter for the ISR
+	bufferCounter[uartKernel] = 0;
+}
+
+void ParsingInput(uint8_t *buffer){
+
+}
+
+
 
 
 

@@ -29,32 +29,100 @@
 #endif
 
 
-void finished_transmission(uint32_t bytes_sent) {
-	// This function will be called after a transmission is complete
+uint8_t buffer[100];
+uint8_t excess_buffer[100];
+uint8_t counter = 0;
+uint8_t double_buffer[2][32];
 
-	volatile uint32_t test = 0;
-	// make a very simple delay
-	for (volatile uint32_t i = 0; i < 0x8ffff; i++) {
-		// waste time !
-	}
+
+
+// This function will be called after a transmission is complete [callback function]
+void finished_transmission(uint8_t *rx_string, uint32_t bytes_sent) {
+	rx_string[bytes_sent] = '\0'; 		//end of string becomes terminating character so it transmits correctly
+	SerialOutputString(rx_string, &USART1_PORT);
 }
+
+void (*when_receiving_data)(uint8_t [][32], SerialPort *) = 0x00;
+
+//void (*when_receiving_data)(uint8_t *, SerialPort *) = 0x00;
+void (*when_sending_data)() = 0x00;
+
+void USART1_EXTI25_IRQHandler(void)
+{
+	// run the USART receive handler (make sure it is not null first !)
+	if (when_receiving_data != 0x00) {
+		/*if(buffer[counter] != '#'){
+			when_receiving_data(&buffer[counter], &USART1_PORT);
+		}
+		if(buffer[counter] == '#'){
+			when_receiving_data(&excess_buffer[counter], &USART1_PORT);
+			}
+		else{
+			counter++;
+		}*/
+		when_receiving_data(double_buffer, &USART1_PORT);
+		}
+
+	// run the USART transmit handler (make sure it is not null first !)
+	if (when_sending_data != 0x00) {
+			when_sending_data(buffer[0], &USART1_PORT);
+		}
+
+	// reset the interrupt (so it doesn't keep firing until the next trigger)
+	//USART1->CR1 &= ~USART_CR1_RXNEIE;  // Disable RXNE interrupt
+}
+
+//unsure if I need this whole thing
+void enable_interrupt() {
+
+    // Disable interrupts while messing around with settings
+    __disable_irq();
+
+    USART1->CR1 |= USART_CR1_RXNEIE;	//enable receive interrupt
+    //USART1_PORT->UART->CR1 |= USART_CR1_RXNEIE;
+
+	// Enable USART1 interrupt in NVIC
+	NVIC_SetPriority(USART1_IRQn, 1);  // Set priority for USART1 interrupt
+	NVIC_EnableIRQ(USART1_IRQn);  // Enable USART1 interrupt
+
+    // Re-enable interrupts
+    __enable_irq();
+}
+
 
 
 int main(void)
 {
-	//uint8_t *string_to_send = "This is a string !\r\n";
-	//uint8_t *send = "sending!!! \r\n";
-	uint8_t buffer[100];
-
-	void (*completion_function)(uint32_t) = &finished_transmission;
-
 	SerialInitialise(BAUD_115200, &USART1_PORT, &finished_transmission);
 
-	//transmit string
-	//SerialOutputString(send, &USART1_PORT);
+	//part (b)
+	void (*completion_function)(uint8_t *, uint32_t) = &finished_transmission;
 
-	//receive string
-	SerialInputString(buffer, &USART1_PORT);
+	//part (a) and (b)
+	//uint8_t terminating = '#';
+	//SerialOutputString(send, &USART1_PORT);		//transmit string
+	//SerialInputString(buffer, &USART1_PORT, terminating);		//receive string
+
+	//part (c)
+	//set the interrupt handling function
+	//when_receiving_data = &InterruptInputString;
+	enable_interrupt();								// enable the interrupt for the USART
+
+	//part (d)
+	//InterruptOutputString();
+
+	when_receiving_data = &SerialInputStringdb;
+
+	while(1){
+		InputLogic(double_buffer);
+	}
+
+	//integration
+	//SerialInputString(buffer, &USART1_PORT);
+	//ParsingInput(buffer);
+
+	/* Loop forever */
+		for(;;) {}
 
 }
 
