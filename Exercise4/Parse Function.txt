@@ -1,0 +1,55 @@
+int main(void)
+{
+
+
+	//LED MAIN FUNCTION
+		// Simulate receiving "10001010" from serial
+		// === Init GPIO and LEDs ===
+	enable_clocks();
+	initialise_digital_io();
+
+		// Optional: clear LEDs initially
+	set_led_state(0x00);
+
+	    // === Simulate received binary pattern ===
+	const char *received_led_value = "10001010";
+	uint8_t led_value = binary_string_to_uint8(received_led_value);
+
+}
+
+
+void ParseInput(uint8_t *input) {
+    char command[20];
+    char operand[80];
+
+    // Try to parse command and operand from the string
+    int parsed = sscanf((char *)input, "%19s %79[^\r\n]", command, operand);
+
+    if (parsed < 2) {
+        SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+        return;
+    }
+
+    if (strcmp(command, "led") == 0) {
+        // Convert binary string to byte and output to GPIO (stub here)
+        uint8_t led_value = (uint8_t)strtol(operand, NULL, 2);
+        // Example: send pattern to LEDs (replace with your actual LED function)
+        set_led_state(led_value); //LED DISPLAY FUNCTION
+
+    } else if (strcmp(command, "serial") == 0) {
+        // Echo the operand back through serial
+        SerialOutputString(operand, &USART1_PORT);
+        SerialOutputString("\r\n", &USART1_PORT);
+
+    } else if (strcmp(command, "oneshot") == 0) {
+        uint32_t duration = (uint32_t)strtoul(operand, NULL, 10);
+        StartOneShotTimer(duration); // Replace with timer input
+
+    } else if (strcmp(command, "timer") == 0) {
+        uint32_t period = (uint32_t)strtoul(operand, NULL, 10);
+        StartContinuousTimer(period); // Replace with timer input
+
+    } else {
+        SerialOutputString("Unknown command\r\n", &USART1_PORT);
+    }
+}
