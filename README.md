@@ -22,6 +22,8 @@ All group members assisted with and scaffolded the integration code associated w
 
 ## Code Explanation
 ### Exercise 1: Digital I/O  
+Exercise 1 interfaces the LEDs and buttons for the STM32F3 discovery board to demonstrate the principles of software design. The LED state is accessed through the header file using get/set functions that take the current state of the LEDs which is defined as a global variable and shifted based on the callback function, then set the current state of the LEDs (first initalised to a known state in the main function). The LED 'blinking' 
+
 
 #### 	Part A:
 <H4>Modular Design</H4>
