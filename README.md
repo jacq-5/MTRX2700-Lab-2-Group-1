@@ -25,7 +25,14 @@ All group members assisted with and scaffolded the integration code associated w
 
 #### 	How to run the code 
 
+#### How to test the code 
+
 #### 	Part A:
+##### 	How to run the code 
+
+##### How to test the code 
 
 #### 	Part B:
+##### 	How to run the code 
 
+##### How to test the code 
