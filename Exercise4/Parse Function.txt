@@ -70,14 +70,7 @@ void ParseInput(uint8_t *input) {
     char *newline = strpbrk(operand, "\r\n");
     if (newline) *newline = '\0';
 
-    // Try to parse command and operand from the string
-    int parsed = sscanf((char *)input, "%19s %79[^\r\n]", command, operand);
-
-    if (parsed < 2) {
-        SerialOutputString("Invalid command format\r\n", &USART1_PORT);
-        return;
-    }
-
+// Select which mode to run
     if (strcmp(command, "led") == 0) {
         // Convert binary string to byte and output to GPIO (stub here)
         uint8_t led_value = (uint8_t)strtol(operand, NULL, 2);
