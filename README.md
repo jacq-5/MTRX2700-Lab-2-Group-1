@@ -32,7 +32,7 @@ All group members assisted with and scaffolded the integration code associated w
    
  ![Image](https://github.com/user-attachments/assets/1ca9df2c-acb4-4ba8-b99b-07bdb248d538) 
  
-6. Within the project in the source folder select assembly.s file and click the debug button.
+6. Within the project in the source folder select main.c file and click the debug button.
 
  ![Image](https://github.com/user-attachments/assets/8d616329-7b3a-4cbd-9536-0d6b6b57365e)
 
