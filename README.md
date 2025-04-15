@@ -25,6 +25,13 @@ All group members assisted with and scaffolded the integration code associated w
 
 #### 	Part A:
 #####  Overview  
+### Implementation
+<H3>[1.3.2 Tasks]</H3>
+<H4>Modular Design</H4>
+<br> </br>
+<pre> 
+   Write pseudo code here
+</pre>
 #####  Logic Overview
 #####  How to run the code
 #####  Test Cases
