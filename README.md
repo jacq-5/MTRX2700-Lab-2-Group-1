@@ -2,7 +2,7 @@
 # Thursday 2pm-5pm
 
 ## Members
-Hailey Thill,
+Hailey Thill-Turke,
 Lillie Mellin,
 Jacqueline Ford,
 James Robison
