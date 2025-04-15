@@ -1,10 +1,52 @@
-11:29:12 **** Incremental Build of configuration Debug for project excersise_2 ****
+11:39:13 **** Incremental Build of configuration Debug for project excersise_2 ****
 make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:36:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   36 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:234:31: warning: statement with no effect [-Wunused-value]
+  234 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:238:31: warning: statement with no effect [-Wunused-value]
+  238 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c: In function 'ParseInput':
+../Src/serial.c:264:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  264 |         SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:139:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  139 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:293:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  293 |         SerialOutputString(operand, &USART1_PORT);
+      |                            ^~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:139:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  139 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:294:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  294 |         SerialOutputString("\r\n", &USART1_PORT);
+      |                            ^~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:139:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  139 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+arm-none-eabi-gcc -o "excersise_2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/excersise_2/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="excersise_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: excersise_2.elf
+ 
 arm-none-eabi-size  excersise_2.elf 
+arm-none-eabi-objdump -h -S excersise_2.elf  > "excersise_2.list"
    text	   data	    bss	    dec	    hex	filename
-   1692	     40	   1672	   3404	    d4c	excersise_2.elf
+   1276	     40	   1672	   2988	    bac	excersise_2.elf
 Finished building: default.size.stdout
  
+Finished building: excersise_2.list
+ 
 
-11:29:13 Build Finished. 0 errors, 0 warnings. (took 830ms)
+11:39:14 Build Finished. 0 errors, 6 warnings. (took 1s.30ms)
 

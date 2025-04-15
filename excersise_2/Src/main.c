@@ -101,8 +101,6 @@ int main(void)
 {
 	SerialInitialise(BAUD_115200, &USART1_PORT, &finished_transmission); //set callback function
 
-	//part (b)
-	//void (*completion_function)(uint8_t *, uint32_t) = &finished_transmission; //test if i need this line
 
 	//part (a) and (b)
 	uint8_t terminating = '#';

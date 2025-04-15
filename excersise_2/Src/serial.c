@@ -167,8 +167,8 @@ void SerialInputString(uint8_t *pt, SerialPort *serial_port, uint8_t terminating
 		 */
 	}
 
-	//serial_port->completion_function(start_of_string, counter); //callback function
-	ParseInput(start_of_string, counter);
+	serial_port->completion_function(start_of_string, counter); //callback function
+
 }
 
 void InterruptOutputChar(){

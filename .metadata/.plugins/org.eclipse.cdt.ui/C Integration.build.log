@@ -1,0 +1,78 @@
+12:54:33 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/Integration.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/Integration.d" -MT"Src/Integration.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/Integration.o"
+arm-none-eabi-gcc "../Src/led.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/led.d" -MT"Src/led.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/led.o"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/sysmem.o"
+arm-none-eabi-gcc "../Src/timers.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/timers.d" -MT"Src/timers.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/timers.o"
+../Src/Integration.c: In function 'ParseInput':
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/Integration.c:18:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   18 |         SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+In file included from ../Src/Integration.c:8:
+../Inc/serial.h:61:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   61 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/serial.c: In function 'InputLogic':
+../Src/Integration.c:41:38: warning: implicit declaration of function 'strtol'; did you mean 'strtok'? [-Wimplicit-function-declaration]
+   41 |         uint8_t led_state = (uint8_t)strtol(operand, NULL, 2);
+      |                                      ^~~~~~
+      |                                      strtok
+../Src/Integration.c:47:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   47 |         SerialOutputString(operand, &USART1_PORT);
+      |                            ^~~~~~~
+      |                            |
+      |                            char *
+../Inc/serial.h:61:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   61 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/serial.c:236:31: warning: statement with no effect [-Wunused-value]
+  236 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/Integration.c:48:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   48 |         SerialOutputString("\r\n", &USART1_PORT);
+      |                            ^~~~~~
+      |                            |
+      |                            char *
+../Inc/serial.h:61:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   61 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/serial.c:240:31: warning: statement with no effect [-Wunused-value]
+  240 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/Integration.c:51:39: warning: implicit declaration of function 'strtoul'; did you mean 'strtok'? [-Wimplicit-function-declaration]
+   51 |         uint32_t duration = (uint32_t)strtoul(operand, NULL, 10);
+      |                                       ^~~~~~~
+      |                                       strtok
+../Src/Integration.c:59:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   59 |         SerialOutputString("Unknown command\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+../Inc/serial.h:61:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   61 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   3560	    120	   2008	   5688	   1638	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+
+12:54:35 Build Finished. 0 errors, 10 warnings. (took 1s.874ms)
+

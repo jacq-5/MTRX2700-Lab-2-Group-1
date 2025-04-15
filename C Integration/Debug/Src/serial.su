@@ -1,0 +1,11 @@
+../Src/serial.c:51:6:SerialInitialise	32	static
+../Src/serial.c:108:6:SerialOutputChar	16	static
+../Src/serial.c:116:6:SerialInputChar	16	static
+../Src/serial.c:141:6:SerialOutputString	16	static
+../Src/serial.c:151:6:SerialInputString	32	static
+../Src/serial.c:176:6:InterruptOutputChar	4	static
+../Src/serial.c:190:6:InterruptOutputString	8	static
+../Src/serial.c:199:6:InterruptInputString	16	static
+../Src/serial.c:206:6:SerialInputStringdb	16	static
+../Src/serial.c:232:6:InputLogic	24	static
+../Src/serial.c:251:6:switch_buffers	4	static
