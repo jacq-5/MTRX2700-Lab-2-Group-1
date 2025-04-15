@@ -1,24 +1,10 @@
-16:22:04 **** Incremental Build of configuration Debug for project excersise_2 ****
+11:29:12 **** Incremental Build of configuration Debug for project excersise_2 ****
 make -j7 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
-   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
-      |  ^~~~~~~
-../Src/main.c: In function 'main':
-../Src/main.c:99:16: warning: unused variable 'completion_function' [-Wunused-variable]
-   99 |         void (*completion_function)(uint8_t *, uint32_t) = &finished_transmission;
-      |                ^~~~~~~~~~~~~~~~~~~
-arm-none-eabi-gcc -o "excersise_2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/excersise_2/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="excersise_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: excersise_2.elf
- 
 arm-none-eabi-size  excersise_2.elf 
-arm-none-eabi-objdump -h -S excersise_2.elf  > "excersise_2.list"
    text	   data	    bss	    dec	    hex	filename
-   1648	     44	   1748	   3440	    d70	excersise_2.elf
+   1692	     40	   1672	   3404	    d4c	excersise_2.elf
 Finished building: default.size.stdout
  
-Finished building: excersise_2.list
- 
 
-16:22:05 Build Finished. 0 errors, 2 warnings. (took 1s.293ms)
+11:29:13 Build Finished. 0 errors, 0 warnings. (took 830ms)
 

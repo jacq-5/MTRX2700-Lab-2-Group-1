@@ -1,0 +1,16 @@
+11:30:45 **** Build of configuration Debug for project Integration ****
+make -j7 all 
+arm-none-eabi-gcc -o "Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Integration.elf
+ 
+arm-none-eabi-size  Integration.elf 
+arm-none-eabi-objdump -h -S Integration.elf  > "Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1692	     40	   1672	   3404	    d4c	Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: Integration.list
+ 
+
+11:30:46 Build Finished. 0 errors, 0 warnings. (took 534ms)
+

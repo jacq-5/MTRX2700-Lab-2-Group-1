@@ -3192,3 +3192,657 @@ Finished building: default.size.stdout
  
 Finished building: excersise_2.list
  
+16:34:01 **** Incremental Build of configuration Debug for project excersise_2 ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/serial.c:36:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   36 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/main.c: In function 'main':
+../Src/main.c:121:16: warning: unused variable 'completion_function' [-Wunused-variable]
+  121 |         void (*completion_function)(uint8_t *, uint32_t) = &finished_transmission;
+      |                ^~~~~~~~~~~~~~~~~~~
+../Src/serial.c:244:6: error: conflicting types for 'ParseInput'; have 'void(uint8_t *, uint8_t)' {aka 'void(unsigned char *, unsigned char)'}
+  244 | void ParseInput(uint8_t *input, uint8_t length) {
+      |      ^~~~~~~~~~
+In file included from ../Src/serial.c:1:
+../Inc/serial.h:81:6: note: previous declaration of 'ParseInput' with type 'void(uint8_t *)' {aka 'void(unsigned char *)'}
+   81 | void ParseInput(uint8_t *input);
+      |      ^~~~~~~~~~
+../Src/serial.c: In function 'ParseInput':
+../Src/serial.c:249:18: warning: implicit declaration of function 'sscanf' [-Wimplicit-function-declaration]
+  249 |     int parsed = sscanf((char *)input, "%19s %79[^\r\n]", command, operand);
+      |                  ^~~~~~
+../Src/serial.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sscanf'
+    3 | #include "stm32f303xc.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Src/serial.c:249:18: warning: incompatible implicit declaration of built-in function 'sscanf' [-Wbuiltin-declaration-mismatch]
+  249 |     int parsed = sscanf((char *)input, "%19s %79[^\r\n]", command, operand);
+      |                  ^~~~~~
+../Src/serial.c:249:18: note: include '<stdio.h>' or provide a declaration of 'sscanf'
+../Src/serial.c:252:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  252 |         SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:137:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  137 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:264:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  264 |         SerialOutputString(operand, &USART1_PORT);
+      |                            ^~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:137:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  137 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:265:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  265 |         SerialOutputString("\r\n", &USART1_PORT);
+      |                            ^~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:137:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  137 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+make: *** [Src/subdir.mk:28: Src/serial.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j7 all" terminated with exit code 2. Build might be incomplete.
+16:34:27 **** Incremental Build of configuration Debug for project excersise_2 ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/serial.c:36:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   36 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/main.c: In function 'main':
+../Src/main.c:121:16: warning: unused variable 'completion_function' [-Wunused-variable]
+  121 |         void (*completion_function)(uint8_t *, uint32_t) = &finished_transmission;
+      |                ^~~~~~~~~~~~~~~~~~~
+../Src/serial.c: In function 'ParseInput':
+../Src/serial.c:249:18: warning: implicit declaration of function 'sscanf' [-Wimplicit-function-declaration]
+  249 |     int parsed = sscanf((char *)input, "%19s %79[^\r\n]", command, operand);
+      |                  ^~~~~~
+../Src/serial.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sscanf'
+    3 | #include "stm32f303xc.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Src/serial.c:249:18: warning: incompatible implicit declaration of built-in function 'sscanf' [-Wbuiltin-declaration-mismatch]
+  249 |     int parsed = sscanf((char *)input, "%19s %79[^\r\n]", command, operand);
+      |                  ^~~~~~
+../Src/serial.c:249:18: note: include '<stdio.h>' or provide a declaration of 'sscanf'
+../Src/serial.c:252:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  252 |         SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:137:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  137 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:264:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  264 |         SerialOutputString(operand, &USART1_PORT);
+      |                            ^~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:137:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  137 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:265:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  265 |         SerialOutputString("\r\n", &USART1_PORT);
+      |                            ^~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:137:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  137 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+arm-none-eabi-gcc -o "excersise_2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/excersise_2/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="excersise_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: excersise_2.elf
+ 
+arm-none-eabi-size  excersise_2.elf 
+arm-none-eabi-objdump -h -S excersise_2.elf  > "excersise_2.list"
+   text	   data	    bss	    dec	    hex	filename
+   1648	     44	   1748	   3440	    d70	excersise_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: excersise_2.list
+ 
+16:35:02 **** Incremental Build of configuration Debug for project excersise_2 ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/main.c: In function 'main':
+../Src/main.c:121:16: warning: unused variable 'completion_function' [-Wunused-variable]
+  121 |         void (*completion_function)(uint8_t *, uint32_t) = &finished_transmission;
+      |                ^~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "excersise_2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/excersise_2/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="excersise_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: excersise_2.elf
+ 
+arm-none-eabi-size  excersise_2.elf 
+arm-none-eabi-objdump -h -S excersise_2.elf  > "excersise_2.list"
+   text	   data	    bss	    dec	    hex	filename
+   1316	     40	   1736	   3092	    c14	excersise_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: excersise_2.list
+ 
+16:40:49 **** Incremental Build of configuration Debug for project excersise_2 ****
+make -j7 all 
+arm-none-eabi-size  excersise_2.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1316	     40	   1736	   3092	    c14	excersise_2.elf
+Finished building: default.size.stdout
+ 
+16:43:02 **** Incremental Build of configuration Debug for project excersise_2 ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:36:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   36 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'ParseInput':
+../Src/serial.c:250:18: warning: implicit declaration of function 'sscanf' [-Wimplicit-function-declaration]
+  250 |     int parsed = sscanf((char *)input, "%s %s", command, operand);
+      |                  ^~~~~~
+../Src/serial.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sscanf'
+    3 | #include "stm32f303xc.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Src/serial.c:250:18: warning: incompatible implicit declaration of built-in function 'sscanf' [-Wbuiltin-declaration-mismatch]
+  250 |     int parsed = sscanf((char *)input, "%s %s", command, operand);
+      |                  ^~~~~~
+../Src/serial.c:250:18: note: include '<stdio.h>' or provide a declaration of 'sscanf'
+../Src/serial.c:254:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  254 |         SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:137:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  137 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:266:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  266 |         SerialOutputString(operand, &USART1_PORT);
+      |                            ^~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:137:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  137 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:267:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  267 |         SerialOutputString("\r\n", &USART1_PORT);
+      |                            ^~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:137:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  137 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+arm-none-eabi-gcc -o "excersise_2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/excersise_2/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="excersise_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: excersise_2.elf
+ 
+arm-none-eabi-size  excersise_2.elf 
+arm-none-eabi-objdump -h -S excersise_2.elf  > "excersise_2.list"
+   text	   data	    bss	    dec	    hex	filename
+   1316	     40	   1736	   3092	    c14	excersise_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: excersise_2.list
+ 
+17:13:16 **** Incremental Build of configuration Debug for project excersise_2 ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/serial.c:36:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   36 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'ParseInput':
+../Src/serial.c:243:18: warning: implicit declaration of function 'sscanf' [-Wimplicit-function-declaration]
+  243 |     int parsed = sscanf((char *)input, "%19s %79[^\r\n]", command, operand);
+      |                  ^~~~~~
+../Src/serial.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sscanf'
+    3 | #include "stm32f303xc.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Src/serial.c:243:18: warning: incompatible implicit declaration of built-in function 'sscanf' [-Wbuiltin-declaration-mismatch]
+  243 |     int parsed = sscanf((char *)input, "%19s %79[^\r\n]", command, operand);
+      |                  ^~~~~~
+../Src/serial.c:243:18: note: include '<stdio.h>' or provide a declaration of 'sscanf'
+../Src/serial.c:248:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  248 |         SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:136:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  136 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:254:38: warning: implicit declaration of function 'strtol'; did you mean 'strtok'? [-Wimplicit-function-declaration]
+  254 |         uint8_t led_value = (uint8_t)strtol(operand, NULL, 2);
+      |                                      ^~~~~~
+      |                                      strtok
+../Src/main.c: In function 'main':
+../Src/main.c:124:9: warning: implicit declaration of function 'enable_clocks' [-Wimplicit-function-declaration]
+  124 |         enable_clocks();
+      |         ^~~~~~~~~~~~~
+../Src/serial.c:256:9: warning: implicit declaration of function 'set_led_state' [-Wimplicit-function-declaration]
+  256 |         set_led_state(led_value); //LED DISPLAY FUNCTION
+      |         ^~~~~~~~~~~~~
+../Src/serial.c:260:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  260 |         SerialOutputString(operand, &USART1_PORT);
+      |                            ^~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:136:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  136 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:261:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  261 |         SerialOutputString("\r\n", &USART1_PORT);
+      |                            ^~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:136:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  136 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/main.c:125:9: warning: implicit declaration of function 'initialise_leds' [-Wimplicit-function-declaration]
+  125 |         initialise_leds();
+      |         ^~~~~~~~~~~~~~~
+../Src/main.c:126:9: warning: implicit declaration of function 'set_led_state'; did you mean 'setstate'? [-Wimplicit-function-declaration]
+  126 |         set_led_state(led_value);
+      |         ^~~~~~~~~~~~~
+      |         setstate
+../Src/main.c:126:23: error: 'led_value' undeclared (first use in this function)
+  126 |         set_led_state(led_value);
+      |                       ^~~~~~~~~
+../Src/main.c:126:23: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Src/subdir.mk:28: Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j7 all" terminated with exit code 2. Build might be incomplete.
+17:13:34 **** Incremental Build of configuration Debug for project excersise_2 ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+arm-none-eabi-gcc -o "excersise_2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/excersise_2/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="excersise_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: excersise_2.elf
+ 
+arm-none-eabi-size  excersise_2.elf 
+arm-none-eabi-objdump -h -S excersise_2.elf  > "excersise_2.list"
+   text	   data	    bss	    dec	    hex	filename
+   1300	     40	   1736	   3076	    c04	excersise_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: excersise_2.list
+ 
+21:06:01 **** Incremental Build of configuration Debug for project excersise_2 ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:36:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   36 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:226:31: warning: statement with no effect [-Wunused-value]
+  226 |                 still_reading == 1;
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:230:31: warning: statement with no effect [-Wunused-value]
+  230 |                 still_reading == 0;
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c: In function 'ParseInput':
+../Src/serial.c:253:18: warning: implicit declaration of function 'sscanf' [-Wimplicit-function-declaration]
+  253 |     int parsed = sscanf((char *)input, "%19s %79[^\r\n]", command, operand);
+      |                  ^~~~~~
+../Src/serial.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sscanf'
+    3 | #include "stm32f303xc.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Src/serial.c:253:18: warning: incompatible implicit declaration of built-in function 'sscanf' [-Wbuiltin-declaration-mismatch]
+  253 |     int parsed = sscanf((char *)input, "%19s %79[^\r\n]", command, operand);
+      |                  ^~~~~~
+../Src/serial.c:253:18: note: include '<stdio.h>' or provide a declaration of 'sscanf'
+../Src/serial.c:258:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  258 |         SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:138:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  138 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/main.c: In function 'main':
+../Src/main.c:98:17: warning: unused variable 'terminating' [-Wunused-variable]
+   98 |         uint8_t terminating = '#';
+      |                 ^~~~~~~~~~~
+../Src/serial.c:264:38: warning: implicit declaration of function 'strtol'; did you mean 'strtok'? [-Wimplicit-function-declaration]
+  264 |         uint8_t led_value = (uint8_t)strtol(operand, NULL, 2);
+      |                                      ^~~~~~
+      |                                      strtok
+../Src/serial.c:266:9: warning: implicit declaration of function 'set_led_state' [-Wimplicit-function-declaration]
+  266 |         set_led_state(led_value); //LED DISPLAY FUNCTION
+      |         ^~~~~~~~~~~~~
+../Src/serial.c:270:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  270 |         SerialOutputString(operand, &USART1_PORT);
+      |                            ^~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:138:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  138 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:271:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  271 |         SerialOutputString("\r\n", &USART1_PORT);
+      |                            ^~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:138:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  138 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+arm-none-eabi-gcc -o "excersise_2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/excersise_2/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="excersise_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: excersise_2.elf
+ 
+arm-none-eabi-size  excersise_2.elf 
+arm-none-eabi-objdump -h -S excersise_2.elf  > "excersise_2.list"
+   text	   data	    bss	    dec	    hex	filename
+   1500	     44	   1748	   3292	    cdc	excersise_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: excersise_2.list
+ 
+21:06:49 **** Incremental Build of configuration Debug for project excersise_2 ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/main.c: In function 'main':
+../Src/main.c:98:17: warning: unused variable 'terminating' [-Wunused-variable]
+   98 |         uint8_t terminating = '#';
+      |                 ^~~~~~~~~~~
+arm-none-eabi-gcc -o "excersise_2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/excersise_2/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="excersise_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: excersise_2.elf
+ 
+arm-none-eabi-size  excersise_2.elf 
+arm-none-eabi-objdump -h -S excersise_2.elf  > "excersise_2.list"
+   text	   data	    bss	    dec	    hex	filename
+   1696	     44	   1748	   3488	    da0	excersise_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: excersise_2.list
+ 
+11:22:11 **** Build of configuration Debug for project excersise_2 ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/serial.c:36:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   36 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/main.c: In function 'main':
+../Src/serial.c:233:31: warning: statement with no effect [-Wunused-value]
+  233 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/main.c:127:53: warning: passing argument 3 of 'SerialInitialise' from incompatible pointer type [-Wincompatible-pointer-types]
+  127 |         SerialInitialise(BAUD_115200, &USART1_PORT, &ParseInput);
+      |                                                     ^~~~~~~~~~~
+      |                                                     |
+      |                                                     void (*)(uint8_t *, uint8_t) {aka void (*)(unsigned char *, unsigned char)}
+../Src/serial.c:237:31: warning: statement with no effect [-Wunused-value]
+  237 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+In file included from ../Src/main.c:23:
+../Inc/serial.h:45:74: note: expected 'void (*)(uint8_t *, uint32_t)' {aka 'void (*)(unsigned char *, long unsigned int)'} but argument is of type 'void (*)(uint8_t *, uint8_t)' {aka 'void (*)(unsigned char *, unsigned char)'}
+   45 | void SerialInitialise(uint32_t baudRate, SerialPort *serial_port, void (*completion_function)(uint8_t *, uint32_t) );
+      |                                                                   ~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Src/main.c:108:17: warning: unused variable 'terminating' [-Wunused-variable]
+  108 |         uint8_t terminating = '#';
+      |                 ^~~~~~~~~~~
+../Src/serial.c: In function 'ParseInput':
+../Src/serial.c:263:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  263 |         SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:139:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  139 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:284:18: warning: implicit declaration of function 'sscanf' [-Wimplicit-function-declaration]
+  284 |     int parsed = sscanf((char *)input, "%19s %79[^\r\n]", command, operand);
+      |                  ^~~~~~
+../Src/serial.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sscanf'
+    3 | #include "stm32f303xc.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Src/serial.c:284:18: warning: incompatible implicit declaration of built-in function 'sscanf' [-Wbuiltin-declaration-mismatch]
+  284 |     int parsed = sscanf((char *)input, "%19s %79[^\r\n]", command, operand);
+      |                  ^~~~~~
+../Src/serial.c:284:18: note: include '<stdio.h>' or provide a declaration of 'sscanf'
+../Src/serial.c:289:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  289 |         SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:139:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  139 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:295:38: warning: implicit declaration of function 'strtol'; did you mean 'strtok'? [-Wimplicit-function-declaration]
+  295 |         uint8_t led_value = (uint8_t)strtol(operand, NULL, 2);
+      |                                      ^~~~~~
+      |                                      strtok
+../Src/serial.c:297:9: warning: implicit declaration of function 'set_led_state' [-Wimplicit-function-declaration]
+  297 |         set_led_state(led_value); //LED DISPLAY FUNCTION
+      |         ^~~~~~~~~~~~~
+../Src/serial.c:301:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  301 |         SerialOutputString(operand, &USART1_PORT);
+      |                            ^~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:139:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  139 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:302:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  302 |         SerialOutputString("\r\n", &USART1_PORT);
+      |                            ^~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:139:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  139 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+arm-none-eabi-gcc -o "excersise_2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/excersise_2/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="excersise_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+/Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/bin/ld: ./Src/serial.o: in function `ParseInput':
+/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/excersise_2/Debug/../Src/serial.c:297:(.text.ParseInput+0xfe): undefined reference to `set_led_state'
+collect2: error: ld returned 1 exit status
+make: *** [makefile:63: excersise_2.elf] Error 1
+"make -j7 all" terminated with exit code 2. Build might be incomplete.
+11:22:45 **** Incremental Build of configuration Debug for project excersise_2 ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:36:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   36 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:233:31: warning: statement with no effect [-Wunused-value]
+  233 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:237:31: warning: statement with no effect [-Wunused-value]
+  237 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c: In function 'ParseInput':
+../Src/serial.c:263:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  263 |         SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:139:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  139 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:284:18: warning: implicit declaration of function 'sscanf' [-Wimplicit-function-declaration]
+  284 |     int parsed = sscanf((char *)input, "%19s %79[^\r\n]", command, operand);
+      |                  ^~~~~~
+../Src/serial.c:4:1: note: include '<stdio.h>' or provide a declaration of 'sscanf'
+    3 | #include "stm32f303xc.h"
+  +++ |+#include <stdio.h>
+    4 | 
+../Src/serial.c:284:18: warning: incompatible implicit declaration of built-in function 'sscanf' [-Wbuiltin-declaration-mismatch]
+  284 |     int parsed = sscanf((char *)input, "%19s %79[^\r\n]", command, operand);
+      |                  ^~~~~~
+../Src/serial.c:284:18: note: include '<stdio.h>' or provide a declaration of 'sscanf'
+../Src/serial.c:289:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  289 |         SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:139:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  139 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:301:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  301 |         SerialOutputString(operand, &USART1_PORT);
+      |                            ^~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:139:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  139 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:302:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  302 |         SerialOutputString("\r\n", &USART1_PORT);
+      |                            ^~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:139:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  139 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+arm-none-eabi-gcc -o "excersise_2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/excersise_2/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="excersise_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: excersise_2.elf
+ 
+arm-none-eabi-size  excersise_2.elf 
+arm-none-eabi-objdump -h -S excersise_2.elf  > "excersise_2.list"
+   text	   data	    bss	    dec	    hex	filename
+   5440	    120	   2072	   7632	   1dd0	excersise_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: excersise_2.list
+ 
+11:24:01 **** Incremental Build of configuration Debug for project excersise_2 ****
+make -j7 all 
+arm-none-eabi-size  excersise_2.elf 
+   text	   data	    bss	    dec	    hex	filename
+   5440	    120	   2072	   7632	   1dd0	excersise_2.elf
+Finished building: default.size.stdout
+ 
+11:27:58 **** Incremental Build of configuration Debug for project excersise_2 ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/serial.c:36:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   36 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/main.c: In function 'main':
+../Src/serial.c: In function 'InputLogic':
+../Src/main.c:109:28: error: 'send' undeclared (first use in this function)
+  109 |         SerialOutputString(send, &USART1_PORT);                                 //transmit string
+      |                            ^~~~
+../Src/main.c:109:28: note: each undeclared identifier is reported only once for each function it appears in
+../Src/serial.c:234:31: warning: statement with no effect [-Wunused-value]
+  234 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/main.c:108:17: warning: unused variable 'terminating' [-Wunused-variable]
+  108 |         uint8_t terminating = '#';
+      |                 ^~~~~~~~~~~
+../Src/serial.c:238:31: warning: statement with no effect [-Wunused-value]
+  238 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c: In function 'ParseInput':
+../Src/serial.c:264:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  264 |         SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:139:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  139 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:293:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  293 |         SerialOutputString(operand, &USART1_PORT);
+      |                            ^~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:139:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  139 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+../Src/serial.c:294:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+  294 |         SerialOutputString("\r\n", &USART1_PORT);
+      |                            ^~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:139:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  139 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
+      |                         ~~~~~~~~~^~
+make: *** [Src/subdir.mk:28: Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j7 all" terminated with exit code 2. Build might be incomplete.
+11:28:11 **** Incremental Build of configuration Debug for project excersise_2 ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/main.c: In function 'main':
+../Src/main.c:109:28: error: 'send' undeclared (first use in this function)
+  109 |         SerialOutputString(send, &USART1_PORT);                                 //transmit string
+      |                            ^~~~
+../Src/main.c:109:28: note: each undeclared identifier is reported only once for each function it appears in
+../Src/main.c:108:17: warning: unused variable 'terminating' [-Wunused-variable]
+  108 |         uint8_t terminating = '#';
+      |                 ^~~~~~~~~~~
+make: *** [Src/subdir.mk:28: Src/main.o] Error 1
+"make -j7 all" terminated with exit code 2. Build might be incomplete.
+11:28:32 **** Incremental Build of configuration Debug for project excersise_2 ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+arm-none-eabi-gcc -o "excersise_2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/excersise_2/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="excersise_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: excersise_2.elf
+ 
+arm-none-eabi-size  excersise_2.elf 
+arm-none-eabi-objdump -h -S excersise_2.elf  > "excersise_2.list"
+   text	   data	    bss	    dec	    hex	filename
+   1692	     40	   1672	   3404	    d4c	excersise_2.elf
+Finished building: default.size.stdout
+ 
+Finished building: excersise_2.list
+ 
+11:29:12 **** Incremental Build of configuration Debug for project excersise_2 ****
+make -j7 all 
+arm-none-eabi-size  excersise_2.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1692	     40	   1672	   3404	    d4c	excersise_2.elf
+Finished building: default.size.stdout
+ 
+11:30:45 **** Build of configuration Debug for project Integration ****
+make -j7 all 
+arm-none-eabi-gcc -o "Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Integration.elf
+ 
+arm-none-eabi-size  Integration.elf 
+arm-none-eabi-objdump -h -S Integration.elf  > "Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1692	     40	   1672	   3404	    d4c	Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: Integration.list
+ 
