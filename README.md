@@ -24,9 +24,10 @@ All group members assisted with and scaffolded the integration code associated w
 ### Exercise 1: Digital I/O  
 
 #### 	Part A:
-##### 	How to run the code 
-
-##### How to test the code 
+#####  Overview  
+#####  Logic Overview
+#####  How to run the code
+#####  Test Cases
 
 #### 	Part B:
 ##### 	How to run the code 
