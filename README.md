@@ -270,7 +270,7 @@ Output: received data will be retransmitted to serial communication interface
 
 Same as part (a) but with the following additions to each function
 
-<pre>
+```c
 Main{
 	Initialise serial port including the call back function argument
 	[part (a) code]
@@ -284,7 +284,7 @@ SerialInputString(buffer, buffer size, serial_port, terminating character){
 [part (a) code]	
 Call serial port callback function
 }
-</pre>
+```
 
 ##### Logic Description
 The typedef Struct SerialPort has the function pointer completion function. The address of the desired call back function is passed into SerialInitialise and this is set as the serial ports completion function. Once the program has finished receiving data from the designated serial port in SerialInputString, this serial port’s completion function is called.
@@ -325,7 +325,7 @@ Same as part (a) but with the following additions to each function
 Input: same as part (a)  
 Output: same as part (a)
 
-<pre>
+```c
 Main file scope:
 Initialise buffer
 Calculate buffer size
@@ -363,7 +363,7 @@ void InterruptInputString(buffer, buffer size, serial_port){
 		Increment counter
 	}
 }
-</pre>
+```
 
 ##### Logic Description
 In enableInterrupts USART1’s receive interrupt is enabled and it’s priority is set. The function called in the interrupt handler is defined. The main function then goes into an infinite loop and when data is sent to USART1 the interrupt handler is called. The interrupt handler checks if a function has been set and then calls this function. Once the terminating character has been received or the buffer is full all new characters will be loaded into a discard variable.
@@ -399,7 +399,7 @@ The program transmits the first byte of an array, initialises the transmit inter
 Input: data to transmit[send_data], index [txTndex], length of string [txLength]  
 Output: USART transmits string 
 
-<pre>
+```c
 Serial.c file scope:
 uint8_t *send_data = "send it!!";
 uint8_t txIndex = 0;
@@ -424,7 +424,7 @@ void InterruptOutputString(){
 	Transmit first character
 	enable transmit interrupt 					
 }
-</pre>
+```
 
 ##### Logic Description
 InterruptOutputString is called in the main function. The transmit interrupt function is set and the first character is manually transmitted. USART1’s transmit interrupt is then enabled. The interrupt will continually be called as the following characters trigger the ready to transmit flag. The interrupt handler calls InterruptOutputChar which checks if all characters have been transmitted yet, if not it transmits the next characters, otherwise it will disable the transmit interrupt so the program is not continually interrupted when there is no more data to send.
@@ -457,7 +457,7 @@ The program receives and processes data using a double buffer, so that new data 
 ##### Modular Design
 Input: buffer, serial port  
 Output: received data will be retransmitted to serial communication interface  
-<pre>
+```c
 Main{
 	enableInterrupts()
 Set interrupt function to SerialInputStringdb
@@ -496,7 +496,7 @@ switchBuffers(){
 switch kernel and user index
 Reset kernel buffer counter 
 }
-</pre>
+```
 
 ##### Logic Description
 Data is received through USART1 by interrupts. Once a transmission is complete, Logic processes this data however if more data is sent during this the interrupt handler will be called to receive this new data. The double buffer allows for this new data to be received into a separate location, not overwriting the data that is not processed yet. Once this new transmission is complete the program will resume where it left off processing the old data and once this is finished it will switch which buffer it is processing and begin processing the new data. If the data transmitted is greater than the buffer size, all excess chracaters will be discarded.
