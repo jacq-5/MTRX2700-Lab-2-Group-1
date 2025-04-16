@@ -57,60 +57,29 @@ All group members assisted with and scaffolded the integration code associated w
  
 5. You will now be able to transmit and receive data from your board
 
-# Exercise 1
+## Exercise 1
 
-## Exercise Overview
+### Exercise Overview
 Exercise 1 interfaces the LEDs and buttons for the STM32F3 discovery board to demonstrate the principles of software design. It is structured around modular and interrupt-driven design principles. The project involves: LED control using GPIO pins, timer-based LED blinking, external interrupt handling via a user button, and LED “chase” functionality triggered by these presses.
 
-## Module Overview
+### Module Overview
 This project is structured into three main components: the Button Module (`button.c`, `button.h`), LED Module (`led.c`, `led.h`), and Main Program (`main.c`). Each module is responsible for a specific aspect of the digital I/O functionality on the STM32F303 microcontroller.
 
-### 1. LED Module
+#### 1. LED Module
+Controls the state of the LEDs connected to GPIO port E by initialising the LEDs on GPIOE pins (PE8–PE15). It provides functions to:
+  - Set the LED output state: `set_state(uint8_t)`
+  - Get the current LED state: `get_state()`
+  - Toggle the LEDs based on current state: `toggle_leds()`
+  - Internally stores the current LED state to maintain consistency across operations.
 
-#### **Purpose**
-Controls the state of the LEDs connected to GPIO port **E**.
 
-#### **Functionality**
-- Initializes the LEDs on **GPIOE** pins (PE8–PE15).
-- Provides functions to:
-  - **Set** the LED output state: `set_state(uint8_t)`
-  - **Get** the current LED state: `get_state()`
-  - **Toggle** the LEDs based on current state: `toggle_leds()`
-- Internally stores the current LED state to maintain consistency across operations.
+#### 2. Button Module
+Handles the initialization and press detection of the button by configuring the GPIO pin for the button (PA0). It sets up an external interrupt (EXTI) to detect rising-edge button presses and executes the user-defined callback function when the button is pressed.
 
----
+#### 3. Main Program
+Integrates both the button and LED modules, and handles LED control through button-triggered events. It manages LED behavior dynamically based on button presses and stored LED state. It calls `button_init()` with a user-defined callback function. The callback is triggered when the button is pressed (via EXTI interrupt). 
 
-### 2. Button Module
-
-#### **Purpose**
-Handles the initialization and press detection of the button.
-
-#### **Functionality**
-- Configures the GPIO pin for the button (**PA0**).
-- Sets up an **external interrupt (EXTI)** to detect rising-edge button presses.
-- Executes a **user-defined callback function** when the button is pressed.
-
----
-
-### 3. Main Program
-
-#### **Purpose**
-Integrates both the button and LED modules, and handles LED control through button-triggered events.
-
-#### **Functionality**
-- Calls `button_init()` with a user-defined callback function.
-- The callback is triggered when the button is pressed (via EXTI interrupt).
-- The callback function (e.g., `toggle_led_callback`) can:
-  - Toggle LEDs
-  - Modify LED patterns
-  - Perform other logic depending on system design
-- Manages LED behavior dynamically based on button presses and stored LED state.
-
----
-
-This modular structure ensures a clear separation of tasks and improves maintainability and reusability of the code.
-
-## How to use:
+### How to use:
 - Provide the user-defined time interval in milliseconds (e.g. 500, 1000)
 - Provide the user-defined LED state bitmask (e.g. `0b00000001` to light up one at a time)
 - Provide the user-defined callback function
@@ -119,7 +88,7 @@ This modular structure ensures a clear separation of tasks and improves maintain
 - The timer interrupt causes the ‘blinking’ appearance
 - The button interrupt and LED toggle cause the ‘chase’ effect respectively
 
-## How to run:
+### How to run:
 The code can be debugged and flashed directly to the STM32 to run. However, additional functionality including initialization checks have been implemented for the user. The following instructions relate to the sanity checks for initializing the LEDs, button, and timer:
 - Add breakpoints in the main file underneath `if (leds.init())`, `if (button.init())`, and `init_timer()` as these all include checks that each function has been successfully flashed to the STM.
 - After running the code to the first breakpoint, LED 0 will turn on to indicate the GPIOE is configured.
@@ -127,21 +96,19 @@ The code can be debugged and flashed directly to the STM32 to run. However, addi
 - After running the code to the third breakpoint, LED 2 will turn on to indicate the timer is configured.
 - These LED states are then cleared so that the remainder of the project can be flashed to the LED without any interference from these checks.
 
----
-
-### Part a) Digital I/O Interface Overview
+## Part a) 
 This project implements a digital I/O interface for both a button and LEDs. The goal is to encapsulate the functionality of interacting with buttons and LEDs into separate independent modules. This allows for reusability. The task is inspired by the W05-C-interrupt code which was used as a guide for the initialization functions.
 
-#### LED Initialization
+### LED Initialization
 `led_init(void)` enables clocks, GPIOE, and sets pins PE8–PE15 as outputs.
 
-**Explanation of key part of code:**
+**Explanation of key parts of code:**
 - `MODER` is a 32-bit register that controls the mode of each pin in port E. Each pin uses 2 bits where `01 = Output`. Since it’s 32 bits, it configures 16 pins: PE0–PE15. 
 - `'(uint16_t *)&(GPIOE->MODER)'` casts the address of `MODER` to a pointer to a 16-bit (`uint16_t`) value, effectively dividing the register into two 16-bit halves.
 - `'+ 1'` adds 1 to the pointer, so it now points to the upper 16 bits of `MODER`, which control pins PE8 to PE15 where the LEDs are connected.
 - `uint16_t *moder = ...` stores the pointer to the upper half of `MODER` in a variable called `moder`. This allows the code to easily modify only the LED-related pin modes without touching the lower 8 pins.
 
-## Button initialisation
+### Button initialisation
 
 The button interface handles the digital input (button press) functionality.  
 `button_init(ButtonCallback callback)` initializes the button GPIO pin and configures the interrupt system for detecting button presses. It takes a callback function as an argument that will be called when the button is pressed.
@@ -166,10 +133,7 @@ Part b implements a system where a function pointer (callback) is passed during 
 This allows the main program to define what happens when the button is pressed, while the button module handles how to detect the button press.
 
 ### How it works:
-
----
-
-### 1. `main.c` — Application Entry Point
+#### 1. `main.c` — Application Entry Point
 
 ```c
 ButtonInterface button = get_button_interface();
@@ -180,18 +144,15 @@ The main program gets an interface struct (`ButtonInterface`) containing the `in
 It calls `init()` and passes a function pointer called `chase_led_callback` as an argument.  
 This function is stored in the `button.c` module and automatically called when the button is pressed.
 
----
-
-### 2. `button.c` — Digital I/O (Button) Module
+#### 2. `button.c` — Digital I/O (Button) Module
 
 ```c
 static ButtonCallback button_callback = 0;
 ```
 
-A static global variable holds the pointer to the callback function provided during init.  
-It uses the type `ButtonCallback`, which is defined as a function pointer.
+A static global variable holds the pointer to the callback function provided during init.  It uses the type `ButtonCallback`, which is defined as a function pointer.
 
-#### Initialisation (`button_init(callback)`)
+##### Initialisation (`button_init(callback)`)
 
 ```c
 static bool button_init(ButtonCallback callback) {
@@ -204,7 +165,7 @@ static bool button_init(ButtonCallback callback) {
 Stores the function pointer in the static variable.  
 This allows the button interrupt to later use it to call the user's function (`chase_led_callback()`).
 
-#### Interrupt handler (`EXTI0_IRQHandler()`)
+##### Interrupt handler (`EXTI0_IRQHandler()`)
 
 ```c
 void EXTI0_IRQHandler(void) {
@@ -213,12 +174,9 @@ void EXTI0_IRQHandler(void) {
 }
 ```
 
-It calls the saved function using the `button_callback()` pointer.  
-This is where `chase_led_callback()` gets executed when the button is pressed.
+It calls the saved function using the `button_callback()` pointer. This is where `chase_led_callback()` gets executed when the button is pressed.
 
----
-
-### 3. `button.h` — Interface
+#### 3. `button.h` — Interface
 
 ```c
 typedef void (*ButtonCallback)(void);
@@ -231,9 +189,8 @@ typedef struct {
 `ButtonCallback` is a type alias for a function pointer.  
 `ButtonInterface` is a struct used to allow decoupled usage of the button module — the main code doesn’t directly know about the internal function names.
 
----
 
-### The callback function (`chase_led_callback`)
+#### The callback function (`chase_led_callback`)
 
 In `main.c`:
 
@@ -245,24 +202,20 @@ void chase_led_callback(void) {
 }
 ```
 
-This function will be automatically triggered every time the button is pressed.  
-The logic performs a rotating LED pattern on each press.
+This function will be triggered every time the button is pressed. The logic performs a rotating LED pattern on each press.
 
 ## Part c)
 
 ### Overview
 
 Part c implements the LED control module where the internal LED state is fully encapsulated, and the only way to access or modify it is through the module's header file. The files involved in this module are:
-
 - `led.h` — Public interface for the LED module  
 - `led.c` — Implementation of the LED logic  
 - `main.c` — Application code using the LED interface  
 
----
 
 ### How it works
-
-The only allowed ways to access or modify `led_state` are through the functions in `led.c`.
+The only ways to access or modify `led_state` are through the functions in `led.c`.
 
 #### Internal LED State (static variable)
 
@@ -281,18 +234,15 @@ Updates both the internal state and reflects the change on the physical GPIO por
 
 #### `get_state(void)`
 
-Allows external files to read the current state of the LEDs.  
-Returns the internal `led_state` rather than reading the actual GPIO.
+Allows external files to read the current state of the LEDs. Returns the internal `led_state` rather than reading the actual GPIO.
 
 #### `toggle_leds(void)`
 
 Uses the current internal `led_state` to toggle the LEDs.
 
----
+#### 'LedInterface'
 
-### Interface Structure
-
-In `led.h`, a `LedInterface` structure provides clean access to the encapsulated module:
+In `led.h`, a `LedInterface` structure provides access to the encapsulated module:
 
 ```c
 typedef struct {
@@ -303,9 +253,7 @@ typedef struct {
 } LedInterface;
 ```
 
----
-
-### `get_led_interface()` returns:
+#### `get_led_interface()` returns:
 
 ```c
 return (LedInterface){
@@ -315,19 +263,15 @@ return (LedInterface){
     .toggle = toggle_leds
 };
 ```
-
-This abstracts away all internal details, allowing the user to interact with LEDs without touching `led_state` or registers directly.
+This allows the user to interact with LEDs without touching `led_state` or registers directly.
 
 ## Part d)
 
-To accomplish the advanced functionality, TIM2 on the STM32 needs to be configured to generate periodic interrupts based on a user-defined time interval in milliseconds. It is designed for the user to specify the timer interval in `main` through the function call `init_timer(500)`.
-
----
+To accomplish the advanced functionality, TIM2 on the STM32 was configured to generate periodic interrupts based on a user-defined time interval in milliseconds. It is designed for the user to specify the timer interval in `main` through the function call `init_timer(500)`.
 
 ### How the timer works
 
 The timer has two configuration values:
-
 - PSC (Prescaler): divides the input clock  
 - ARR (Auto Reload Register): sets the maximum count (or "tick") value before the timer overflows and triggers an update event (interrupt)
 
@@ -337,14 +281,11 @@ The time interval between timer interrupts is given by:
 Interval (seconds) = ((ARR + 1) × (PSC + 1)) / timer_clock
 ```
 
-The STM timer is driven by an 8 MHz timer clock (8 million ticks per second).  
-To tick once every millisecond (1 kHz), the timer clock must be divided by 8000:
+The STM timer is driven by an 8 MHz timer clock (8 million ticks per second). To tick once every millisecond (1 kHz), the timer clock must be divided by 8000:
 
 ```
 8000000 Hz / 8000 = 1000 Hz → 1 ms per tick
 ```
-
----
 
 ### Timer summary in pseudocode
 ```c
@@ -369,7 +310,6 @@ TIM2_IRQHandler() {
     Check if UIF flag in status register is set
     If set, toggle LED
 }
-
 
 
 ### Exercise 2: Serial Interface
