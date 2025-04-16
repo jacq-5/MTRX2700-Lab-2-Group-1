@@ -198,7 +198,7 @@ In main.c, input desired timer into `init_timer(500)`, where 500 is in milliseco
 #### Part A:
 Data is received from a UART into a designated buffer. If the data is larger than the designated buffer size the extra characters will not be stored. 
 ##### Modular Design
-Input: buffer, serial port, terminating character  
+Input: 'buffer, buffer size, serial_port, terminating character'  
 Output: received data will be loaded into buffer
 ```c
 Main{
@@ -206,6 +206,7 @@ Main{
 	Initialise buffer
 	Calculate buffer size
 	Initialise terminating character
+	SerialInputString(buffer, buffer size, serial_port, terminating character)
 }
 
 SerialInputString(buffer, buffer size, serial_port, terminating character){
@@ -226,7 +227,7 @@ While (character != terminating character){
 
 SerialInputChar(){
 	Check ready to receive flag 
-Buffer = incoming character
+	Buffer = incoming character
 }
 ```
 
