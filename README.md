@@ -133,7 +133,7 @@ Part b implements a system where a function pointer (callback) is passed during 
 This allows the main program to define what happens when the button is pressed, while the button module handles how to detect the button press.
 
 ### How it works:
-#### 1. `main.c` — Application Entry Point
+#### 1. `main.c` — Entry Point
 
 ```c
 ButtonInterface button = get_button_interface();
@@ -186,8 +186,8 @@ typedef struct {
 } ButtonInterface;
 ```
 
-`ButtonCallback` is a type alias for a function pointer.  
-`ButtonInterface` is a struct used to allow decoupled usage of the button module — the main code doesn’t directly know about the internal function names.
+`ButtonCallback` is the name of the function pointer.  
+`ButtonInterface` is a struct to separate the button code from the main project such that the main code doesn't directly access or modify the internal functions.
 
 
 #### The callback function (`chase_led_callback`)
@@ -226,8 +226,6 @@ static uint8_t led_state = 0;
 Stores `led_state` privately inside `led.c` so that it is not visible or accessible to `main.c` or any external file.  
 This ensures that all read/write access goes through controlled functions only.
 
----
-
 #### `set_state(uint8_t state)`
 
 Updates both the internal state and reflects the change on the physical GPIO port (Port E).
@@ -240,7 +238,7 @@ Allows external files to read the current state of the LEDs. Returns the interna
 
 Uses the current internal `led_state` to toggle the LEDs.
 
-#### 'LedInterface'
+#### `LedInterface`
 
 In `led.h`, a `LedInterface` structure provides access to the encapsulated module:
 
@@ -310,7 +308,7 @@ TIM2_IRQHandler() {
     Check if UIF flag in status register is set
     If set, toggle LED
 }
-
+```
 
 ### Exercise 2: Serial Interface
 
