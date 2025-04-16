@@ -135,8 +135,8 @@ SerialInputString(buffer, buffer_size, &serialPort, terminating);
 
 ##### Test Cases
 Terminating character  
-- Input: hello#  
- Output: buffer = hello#
+    Input: hello#  
+    Output: buffer = hello#
 
 No terminating character  
 - Input: hello  
