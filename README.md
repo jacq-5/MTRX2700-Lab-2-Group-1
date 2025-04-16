@@ -198,7 +198,7 @@ In main.c, input desired timer into `init_timer(500)`, where 500 is in milliseco
 #### Part A:
 Data is received from a UART into a designated buffer. If the data is larger than the designated buffer size the extra characters will not be stored. 
 ##### Modular Design
-Input: `buffer, buffer size, serial_port, terminating character`
+Input: `buffer, buffer size, serial_port, terminating character`  
 Output: received data will be loaded into buffer
 ```c
 Main{
@@ -266,7 +266,7 @@ Data > buffer size
 Once a terminating character has been received a call back function will be called. This function is set when initialising the serial port.
 
 ##### Modular Design
-Input: buffer, serial port, terminating character, callback function  
+Input: `buffer, serial port, terminating character, callback function`    
 Output: received data will be retransmitted to serial communication interface
 
 Same as part (a) but with the following additions to each function
@@ -288,7 +288,7 @@ Call serial port callback function
 ```
 
 ##### Logic Description
-The typedef Struct SerialPort has the function pointer completion function. The address of the desired call back function is passed into SerialInitialise and this is set as the serial ports completion function. Once the program has finished receiving data from the designated serial port in SerialInputString, this serial port’s completion function is called.
+The typedef Struct `SerialPort` has the function pointer `completion_function`. The address of the desired call back function is passed into `SerialInitialise` and this is set as the serial ports `completion_function`. Once the program has finished receiving data from the designated serial port in `SerialInputString`, this serial port’s `completion_function` is called.
 
 ##### User Instructions
    1. Initialise call back function by passing it’s address into SerialInitialise
