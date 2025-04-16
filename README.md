@@ -498,7 +498,7 @@ Reset kernel buffer counter
 </pre>
 
 ##### Logic Description
-Data is received through USART1 by interrupts. Once a transmission is complete, Logic processes this data however if more data is sent during this the interrupt handler will be called to receive this new data. The double buffer allows for this new data to be received into a separate location, not overwriting the data that is not processed yet. Once this new transmission is complete the program will resume where it left off processing the old data and once this is finished it will switch which buffer it is processing and begin processing the new data.
+Data is received through USART1 by interrupts. Once a transmission is complete, Logic processes this data however if more data is sent during this the interrupt handler will be called to receive this new data. The double buffer allows for this new data to be received into a separate location, not overwriting the data that is not processed yet. Once this new transmission is complete the program will resume where it left off processing the old data and once this is finished it will switch which buffer it is processing and begin processing the new data. If the data transmitted is greater than the buffer size, all excess chracaters will be discarded.
 
 ##### User Instructions
    1. Initialize double buffer in main file scope.
@@ -532,4 +532,8 @@ Multiple Inputs
 - Output: Cutecom -   
 Data1  
 Data2
+
+Data > buffer size
+- Input: What a wonderful world! Disneyland is magical :)
+- Output: What a wonderful world! Disneyl
 
