@@ -198,7 +198,7 @@ In main.c, input desired timer into `init_timer(500)`, where 500 is in milliseco
 #### Part A:
 Data is received from a UART into a designated buffer. If the data is larger than the designated buffer size the extra characters will not be stored. 
 ##### Modular Design
-Input: 'buffer, buffer size, serial_port, terminating character'  
+Input: `buffer, buffer size, serial_port, terminating character`
 Output: received data will be loaded into buffer
 ```c
 Main{
@@ -210,19 +210,19 @@ Main{
 }
 
 SerialInputString(buffer, buffer size, serial_port, terminating character){
-Initialise a counter
-Initialize pointer to start of buffer
-
-SerialInputChar()
-Increment counter
-
-While (character != terminating character){
-	If counter > buffer length {
-		Break
-	}
+	Initialise a counter
+	Initialize pointer to start of buffer
+	
 	SerialInputChar()
 	Increment counter
-}
+	
+	While (character != terminating character){
+		If counter > buffer length {
+			Break
+		}
+		SerialInputChar()
+		Increment counter
+	}
 }
 
 SerialInputChar(){
@@ -232,17 +232,17 @@ SerialInputChar(){
 ```
 
 ##### Logic Description
-When SerialInputString is called the program will enter SerialInputChar and loop there until the ready to receive flag is on. The program will then load the first character into the buffer, return to SerialInputString and check if this character was the terminating character. If not, SerialInputChar is continuously called until the terminating character is received. The program will then exit the function. Furthermore after each character is loaded into the buffer the counter is compared with buffer length, if the buffer is full the program exits the while loop meaning no further characters are received.
+When `SerialInputString` is called the program will enter `SerialInputChar` and loop there until the ready to receive flag is on `USART_ISR_RXNE`. The program will then load the first character into the buffer, return to `SerialInputString` and check if this character was the terminating character. If not, `SerialInputChar` is continuously called until the terminating character is received. The program will then exit the function. Furthermore after each character is loaded into the buffer, `counter` is compared with `buffer_size`, if the buffer is full the program exits the while loop meaning no further characters are received.
 
 ##### User Instructions
-   1. Initialise your buffer, serial port and terminating character
+   1. Initialise your buffer, buffer_size, serial port and terminating character in main
 <pre>
 SerialInitialise(BAUD_115200, &serialPort)
 uint8_t terminating = '#';
 uint8_t buffer[32];
 uint32_t buffer_size = sizeof(buffer)/sizeof(buffer[0]);	
 </pre>
-   2. Call SerialInputString with the arguments of your buffer, serial port and terminating character.
+   2. Call SerialInputString with the following arguments.
 <pre>
 SerialInputString(buffer, buffer_size, &serialPort, terminating);
 </pre>
