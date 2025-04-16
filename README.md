@@ -135,17 +135,17 @@ SerialInputString(buffer, buffer_size, &serialPort, terminating);
 
 ##### Test Cases
 Terminating character  
-    Input: hello#  
-    Output: buffer = hello#
+- Input: hello#  
+ Output: buffer = hello#
 
 No terminating character  
-	Input: hello  
-	Output: buffer = hello  
+- Input: hello  
+- Output: buffer = hello  
 Limitation - without terminating character program stays in receive loop writing for more characters
 
 Data > buffer size  
-	Input: What A Wonderful World - Disney Land  
-	Output: buffer = What A Wonderful World - Disney
+- Input: What A Wonderful World - Disney Land  
+- Output: buffer = What A Wonderful World - Disney
 
 #### Part B:
 Once a terminating character has been received a call back function will be called. This function is set when initialising the serial port.
