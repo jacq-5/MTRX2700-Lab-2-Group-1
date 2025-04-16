@@ -135,17 +135,17 @@ SerialInputString(buffer, buffer_size, &serialPort, terminating);
 
 ##### Test Cases
 Terminating character  
-Input: hello#  
-Output: buffer = hello#
+	Input: hello#  
+	Output: buffer = hello#
 
 No terminating character  
-Input: hello  
-Output: buffer = hello  
+	Input: hello  
+	Output: buffer = hello  
 Limitation - without terminating character program stays in receive loop writing for more characters
 
 Data > buffer size  
-Input: What A Wonderful World - Disney Land  
-Output: buffer = What A Wonderful World - Disney
+	Input: What A Wonderful World - Disney Land  
+	Output: buffer = What A Wonderful World - Disney
 
 #### Part B:
 Once a terminating character has been received a call back function will be called. This function is set when initialising the serial port.
@@ -190,16 +190,16 @@ serial_port->completion_function(start_of_string, counter); //callback function
 These test cases are based on callBackFunction retransmitting the received string
 
 Terminating Character  
-Input: Hello#  
-Output: cutecom - Hello#
+	Input: Hello#  
+	Output: cutecom - Hello#
 
 No Terminating Character  
-Input: Hello  
-Output: cutecom - 
+	Input: Hello  
+	Output: cutecom - 
 
 Data > buffer size  
-Input: What A Wonderful World - Disney Land  
-Output: cutecom - What A Wonderful World - Disney
+	Input: What A Wonderful World - Disney Land  
+	Output: cutecom - What A Wonderful World - Disney
 
 
 #### Part C:
@@ -278,9 +278,7 @@ when_receiving_data = &InterruptInputString;
 ##### Test Cases
 Same test cases as part (a) because functionality has not changed.
 
-#### Part D:
-
-#### Transmit Interrupt
+#### Part D: Transmit Interrupt
 The program transmits the first byte of an array, initialises the transmit interrupt and this is used to transmit the rest of the string. 
 
 ##### Modular Design
@@ -336,12 +334,10 @@ enableInterrupt()
 
 ##### Test Cases
 Upper case, lower case, numbers and special characters  
-Input: send_data = GoTeam2025!!!  
-Output: Cutecom - GoTeam2025!!!
+	Input: send_data = GoTeam2025!!!  
+	Output: Cutecom - GoTeam2025!!!
 
-#### Part D:
-
-#### Double Buffer
+#### Part D: Double Buffer
 The program receives and processes data using a double buffer, so that new data can be received in the middle of processing previous data without overwriting any of it. 
 
 ##### Modular Design
