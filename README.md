@@ -297,7 +297,7 @@ SerialInitialise(BAUD_115200, &USART1_PORT, &callBackFunction);
 </pre>
    2. Call the callback function at end of SeriaInputString
 <pre>
-serial_port->completion_function(start_of_string, counter); //callback function	
+serial_port->completion_function(start_of_string, counter); 	
 </pre>
    3. Follow instructions from part (a)
 
@@ -329,6 +329,7 @@ Output: same as part (a)
 ```c
 Main file scope:
 Initialise buffer
+Initialise terminating character
 Calculate buffer size
 Initialize interrupt function pointer
 
@@ -336,26 +337,26 @@ Serial.c file scope:
 Initialize counter
 
 Main{
-enableInterrupts()
-Set interrupt function to InterruptInputString
-Infinite loop
+	enableInterrupts()
+	Set interrupt function to InterruptInputString
+	Infinite loop
 }
 
 void enable_interrupt() {
-Disable interrupts
-enable receive interrupt
-Set priority for USART1 interrupt
-	allows USART1 interrupt to occur
-Re-enable interrupts
+	Disable interrupts
+	enable receive interrupt
+	Set priority for USART1 interrupt
+	allow USART1 interrupt to occur
+	Re-enable interrupts
 }
 
 Interrupt handler{
 	If interrupt function has been set{
 		Call interrupt function
-}
+	}
 }
 
-void InterruptInputString(buffer, buffer size, serial_port){
+void InterruptInputString(buffer, terminating, buffer size, serial_port){
 	if(character == terminating OR counter >= buffer size){
 		discard = new character
 	}
@@ -367,13 +368,14 @@ void InterruptInputString(buffer, buffer size, serial_port){
 ```
 
 ##### Logic Description
-In enableInterrupts USART1’s receive interrupt is enabled and it’s priority is set. The function called in the interrupt handler is defined. The main function then goes into an infinite loop and when data is sent to USART1 the interrupt handler is called. The interrupt handler checks if a function has been set and then calls this function. Once the terminating character has been received or the buffer is full all new characters will be loaded into a discard variable.
+In `enableInterrupts` USART1’s receive interrupt is enabled and it’s priority is set. The function called in the interrupt handler 'when_receiving_data' is defined. The main function then goes into an infinite loop and when data is sent to USART1 the interrupt handler `USART1_EXTI25_IRQHandler` is called. The interrupt handler checks if a function has been set and then calls 'when_receiving_data'. Once the terminating character has been received or the buffer is full all new characters will be loaded into a discard variable.
 
 ##### User Instructions
-   1. Initialise buffer, buffer size and counter variables in their designated scopes. 
+   1. Initialise buffer, terminating character, buffer size and counter variables in their designated scopes. 
 <pre>
 uint8_t buffer[32];
 uint32_t buffer_size = sizeof(buffer)/sizeof(buffer[0]);
+uint8_t terminating = '#';
 
 uint8_t counter;	
 </pre>
