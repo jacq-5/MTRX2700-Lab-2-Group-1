@@ -415,8 +415,8 @@ enableInterrupt()
 
 ##### Test Cases
 Multiple Inputs
-- Input: Data1, Data 2 (input these separately)
-- Output: Cutecom - 
-Data1
-Data 2
+- Input: Data1, Data2 (input these separately)
+- Output: Cutecom -   
+Data1  
+Data2
 
