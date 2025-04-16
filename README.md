@@ -126,7 +126,7 @@ if (button.init(chase_led_callback)) led_test(1);
 The main program gets an interface struct (`ButtonInterface`) from `button.h` containing the `init()` function.  It calls `init()` and passes a function pointer called `chase_led_callback` as an argument. This function is stored in the `button.c` module and automatically called when the button is pressed.
 
 ###### 2. `button.c` — Digital I/O (Button) Module
-A static global variable holds the pointer to the callback function provided during init. It uses the type `ButtonCallback`, which is defined as a function pointer. The `button_init()' function stores the function pointer in the static variable. This allows the button interrupt to later use it to call the user's function (`chase_led_callback()`). The interrupt handler (`EXTI0_IRQHandler()`) calls the saved function using the `button_callback()` pointer. This is where `chase_led_callback()` gets executed when the button is pressed.`ButtonInterface` is a struct to separate the button code from the main project such that the main code doesn't directly access or modify the internal functions. The callback function (`chase_led_callback`) will be triggered every time the button is pressed. The logic performs a rotating LED pattern on each press.
+A static global variable holds the pointer to the callback function provided during init. It uses the type `ButtonCallback`, which is defined as a function pointer. The `button_init()` function stores the function pointer in the static variable. This allows the button interrupt to later use it to call the user's function (`chase_led_callback()`). The interrupt handler (`EXTI0_IRQHandler()`) calls the saved function using the `button_callback()` pointer. This is where `chase_led_callback()` gets executed when the button is pressed.`ButtonInterface` is a struct to separate the button code from the main project such that the main code doesn't directly access or modify the internal functions. The callback function (`chase_led_callback`) will be triggered every time the button is pressed. The logic performs a rotating LED pattern on each press.
 
 
 #### Part C:
@@ -142,7 +142,6 @@ The only ways to access or modify `led_state` are through the functions in `led.
 - `set_state(uint8_t state)`: Updates both the internal state and reflects the change on the physical GPIO port (Port E).
 - `get_state(void)`: Allows external files to read the current state of the LEDs. Returns the internal `led_state` rather than reading the actual GPIO.
 - `toggle_leds(void)`: Uses the current internal `led_state` to toggle the LEDs.
-- `LedInterface`: In `led.h`, this struct provides access to the encapsulated module:
 - `get_led_interface()`: Allows the user to interact with LEDs without touching `led_state` or registers directly.
 
 #### Part D:
