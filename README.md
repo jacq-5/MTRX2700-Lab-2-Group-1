@@ -540,6 +540,164 @@ Multiple Inputs
 Data1  
 Data2
 
+
+#### Exercise 3: Timer Interface
+Exercise 3 involves creating a module to interface with hardware timers, triggering callback functions at regular intervals, changing these intervals with another function, and using a oneshot function to trigger a onetime event.
+
+#### Raw Assembly
+Each major function in this module contains commented assembly code to explain on a hardware level the function of the code. This provides clarity on how high-level C operations translate to register-level manipulations.
+
+#### Clocks & GPIO
+- `enable_clocks()` enables clocks for **GPIOE**, **TIM2**, and **TIM3**.
+- `initialise_board()` configures **PE8–PE15** as outputs.
+
+```c
+void enable_clocks() {
+	RCC->AHBENR  |= RCC_AHBENR_GPIOEEN;
+	RCC->APB1ENR |= RCC_APB1ENR_TIM2EN | RCC_APB1ENR_TIM3EN;
+}
+```
+
+```c
+void initialise_board() {
+	uint16_t *led_output_registers = ((uint16_t *)&(GPIOE->MODER)) + 1;
+	*led_output_registers = 0x5555;  // Set PE8–PE15 as output
+}
+```
+
+#### TIM2 – Periodic Interrupt Timer
+- `timer_init()` sets up TIM2 for periodic interrupts (1 kHz).
+- `reset_period()` changes the interval at runtime.
+- `get_period()` returns the current timer interval.
+- `TIM2_IRQHandler()` triggers a user-defined callback.
+
+The timer interface is modular by design. A function pointer is passed into `timer_init`, and the timer calls it back automatically on each period match.
+
+```c
+void timer_init(uint32_t interval, callback_t cb) {
+	user_callback = cb;
+	interval_ms = interval;
+
+	TIM2->PSC = 7999;               // 1ms tick
+	trigger_prescaler();            // Force prescaler reload
+	TIM2->ARR = interval_ms;
+	TIM2->DIER |= TIM_DIER_UIE;
+	TIM2->CR1  |= TIM_CR1_CEN;
+	NVIC_EnableIRQ(TIM2_IRQn);
+}
+```
+
+#### TIM3 – One-Shot Timer
+- `start_oneshot_timer_TIM3()` configures TIM3 to fire once after a specified delay (ms).
+- `TIM3_IRQHandler()` executes a one-shot callback once the delay elapses.
+
+The one-shot mechanism is modular and uses a separate function pointer `oneshot_callback`. Once fired, the handler clears state and disables the timer.
+
+```c
+void start_oneshot_timer_TIM3(uint32_t delay_ms, callback_t cb) {
+    oneshot_mode = 1;
+    oneshot_callback = cb;
+
+    TIM3->CR1 = 0;
+    TIM3->CNT = 0;
+    TIM3->PSC = 7999;
+    TIM3->ARR = delay_ms;
+    TIM3->EGR |= TIM_EGR_UG;
+    TIM3->SR &= ~TIM_SR_UIF;
+    TIM3->DIER |= TIM_DIER_UIE;
+    TIM3->CR1 |= TIM_CR1_OPM | TIM_CR1_CEN;
+    NVIC_EnableIRQ(TIM3_IRQn);
+}
+```
+
+#### LED Blinking
+- `blink_led1()` toggles PE8 for periodic events.
+- `blink_led2()` toggles PE15 for one-shot visual feedback.
+
+Each blink function is isolated, modular, and registered via a callback mechanism.
+
+```c
+void blink_led1(void) {
+    const uint8_t mask = 0b00000001;
+    static uint8_t state = 0;
+    uint8_t *led_output_register = ((uint8_t*)&(GPIOE->ODR)) + 1;
+
+    state ^= mask;
+    *led_output_register = (*led_output_register & ~mask) | (state & mask);
+}
+```
+
+```c
+void blink_led2(void) {
+    const uint8_t mask = 0b10000000;
+    static uint8_t state = 0;
+    uint8_t *led_output_register = ((uint8_t*)&(GPIOE->ODR)) + 1;
+
+    state ^= mask;
+    *led_output_register = (*led_output_register & ~mask) | (state & mask);
+}
+```
+
+#### Logic
+
+##### Part A, B & C
+The function `timer_init` is called upon in `main`, taking the parameters `interval` and `cb`. `interval` refers to the interval in milliseconds that is desired in which the callback function is run, and `cb` is the name of said callback function.  
+Then within `timer_init`, a prescaler value is set and loaded for 7999, resulting in a 1kHz clock frequency. The Auto Reload Register (ARR) is set to the interval passed in the function call. The timer is then started, and the interrupt is enabled.  
+When the counter reaches ARR (i.e., the interval), the `TIM2_IRQHandler` checks the UIF flag, clears it if it is active, and then runs the callback specified in `timer_init`.  
+`blink_led1` is a function that toggles the state of the PE8 LED to display the operation of the periodic timer.
+
+##### Part B
+The function `reset_period` is used to input a new value for ARR to change the period of the timer (in milliseconds). This is done by passing the new value, assigning it to ARR, resetting the counter, and forcing an update event to kickstart the timer. This results in an immediate call to `blink_led1`, and the LED then blinks at the new interval.
+
+```c
+void reset_period(uint32_t period) {
+	interval_ms = period;
+	TIM2->ARR = interval_ms;
+	TIM2->CNT = 0;
+	TIM2->EGR |= TIM_EGR_UG;
+}
+```
+
+The function `get_period()` simply returns the current period, as `interval_ms` is globally defined:
+
+```c
+uint32_t get_period(void) {
+	return interval_ms;
+}
+```
+
+##### Part C
+The function `timer_start_oneshot` is used, which takes in the interval in milliseconds and a callback function — similar to `timer_init`, but instead leverages TIM3 to create a separate clock that doesn't interfere with TIM2. Internally, it operates similarly using the same prescaler value.  
+However, unlike the periodic timer, once the interrupt fires in `TIM3_IRQHandler`, the timer is explicitly disabled inside the handler after calling the callback function. This ensures that the interrupt and timer do not repeat and act only once. This is typically done by clearing the `CEN` (Counter Enable) bit in `TIM3->CR1` after checking and clearing the UIF flag.
+
+```c
+void TIM3_IRQHandler(void) {
+    if (TIM3->SR & TIM_SR_UIF) {
+        TIM3->SR &= ~TIM_SR_UIF;
+        if (oneshot_mode && oneshot_callback) {
+            callback_t cb = oneshot_callback;
+            oneshot_callback = 0;
+            oneshot_mode = 0;
+            cb();  // One-shot callback
+        }
+    }
+}
+```
+
+#### Testing
+Largely, `blink_led1` and `blink_led2` have been used for debugging and display purposes:
+
+1. An oscilloscope was used to assure the proper period intervals specified. This was done by applying the oscilloscope to the LED connector solder and observing the on and off periods, as well as confirming a 50% duty cycle.
+2. A reset period was inputted with a large difference to observe a visible change once the function was called.
+3. The one-shot timer was tested using `blink_led2`, confirming it only triggered once and only after the delay had elapsed.
+4. The delay periods use `uint32_t` input types. If an invalid input (e.g., a string) were used, compilation would fail, preventing undefined behavior.
+
+#### Summary of Modularity
+- Clean separation between TIM2 and TIM3 allows for concurrent periodic and one-shot functionality.
+- Callback functions are passed as function pointers, enabling reusable, flexible code.
+- Common configurations (e.g., prescaler, ARR setting, update forcing) are abstracted into helper functions for clarity and reuse.
+- Assembly annotations help validate correctness at the register level, useful for debugging low-level behavior.
+
 Data > buffer size
 - Input: What a wonderful world! Disneyland is magical :)
 - Output: What a wonderful world! Disneyl
