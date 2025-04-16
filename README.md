@@ -399,8 +399,8 @@ Same test cases as part (a) because functionality has not changed.
 The program transmits the first byte of an array, initialises the transmit interrupt and this is used to transmit the rest of the string. 
 
 ##### Modular Design
-Input: data to transmit[send_data], index [txTndex], length of string [txLength]  
-Output: USART transmits string 
+Input: `send_data, tx_index, tx_length`  
+Output: string will be retransmitted to serial communication interface
 
 ```c
 Serial.c file scope:
@@ -409,8 +409,8 @@ uint8_t txIndex = 0;
 uint8_t txLength = 9;
 
 Main{
-enableInterrupts	
-InterruptOutputString;
+	enableInterrupts	
+	InterruptOutputString;
 }
 
 void InterruptOutputChar(){
@@ -430,10 +430,10 @@ void InterruptOutputString(){
 ```
 
 ##### Logic Description
-InterruptOutputString is called in the main function. The transmit interrupt function is set and the first character is manually transmitted. USART1’s transmit interrupt is then enabled. The interrupt will continually be called as the following characters trigger the ready to transmit flag. The interrupt handler calls InterruptOutputChar which checks if all characters have been transmitted yet, if not it transmits the next characters, otherwise it will disable the transmit interrupt so the program is not continually interrupted when there is no more data to send.
+`InterruptOutputString` is called in the main function. The transmit interrupt function `when_sending_data` is set and the first character is manually transmitted by `SerialOutputChar`. USART1’s transmit interrupt is then enabled. The interrupt will continually be called as the following characters trigger the ready to transmit flag. The interrupt handler calls `InterruptOutputChar` which checks if all characters have been transmitted yet, if not it transmits the next character, otherwise it will disable the transmit interrupt so the program is not continually interrupted when there is no more data to send.
 
 ##### User Instructions
-   1. Initialise the string you want to transmit, as well as it’s length and an index function
+   1. Initialise the string you want to transmit, as well as it’s length and an index function in serial.c file scope
 <pre>
 uint8_t *send_data = "send it!!";
 uint8_t txIndex = 0;
@@ -447,7 +447,10 @@ void (*when_sending_data)() = 0x00;
 <pre>
 enableInterrupt()	
 </pre>
-   4. Call InterruptOutputString. 
+   4. Call InterruptOutputString.
+<pre>
+InterruptOutputString();	
+</pre>
 
 ##### Test Cases
 Upper case, lower case, numbers and special characters  
@@ -458,13 +461,13 @@ Upper case, lower case, numbers and special characters
 The program receives and processes data using a double buffer, so that new data can be received in the middle of processing previous data without overwriting any of it. 
 
 ##### Modular Design
-Input: buffer, serial port  
+Input: `buffer, buffer_size, serial port`  
 Output: received data will be retransmitted to serial communication interface  
 ```c
 Main{
 	enableInterrupts()
-Set interrupt function to SerialInputStringdb
-Infinite loop
+	Set interrupt function to SerialInputStringdb
+	Infinite loop
 }
 
 void SerialInputStringdb(buffer, serial_port) {
@@ -496,8 +499,8 @@ void InputLogic(buffer){
 }
 
 switchBuffers(){
-switch kernel and user index
-Reset kernel buffer counter 
+	switch kernel and user index
+	Reset kernel buffer counter 
 }
 ```
 
