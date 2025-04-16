@@ -48,14 +48,7 @@ STM32F3 discovery board.
 #include <stddef.h>
 #include "stm32f303xc.h"
 
-// Not relevant here as no floating point math used but included in tut
-#if !defined(__SOFT_FP__) && defined(__ARM_FP)
-  #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
-#endif
 
-// global variable and callback pointer
-static uint8_t led_state = 0;			// stores current LED output state (8 bits)
-// The variable led_state is declared as static within the .c file, making it private to the file and inaccessible outside of the module. This ensures that the LED state is encapsulated and cannot be directly accessed or modified by other parts of the program.
 // points to the button_callback function each time the button is pressed
 void (*button_callback)() = NULL;		// function pointer to handle button press events
 
@@ -65,19 +58,10 @@ void enable_clocks() {
     RCC->AHBENR |= RCC_AHBENR_GPIOEEN;  // Enable clock for GPIOE (LEDs)
 }
 
-// initialise the discovery board I/O (just outputs: inputs are selected by default)
-// void initialise_board() {
-	// get a pointer to the second half word of the MODER register (for outputs pe8-15)
-	// (GPIOE->MODER) controls the mode of each pin
-	// uint16_t *led_output_registers = ((uint16_t *)&(GPIOE->MODER)) + 1; // ((uint16_t *)&(GPIOE->MODER)) + 1: GPIOE->MODER is a 32-bit register, pins PE0-PE15 spans bits 0-31, we want upper half (PE8-15) to be indexed at 1 ('active') as these correspond to LEDs
-	// So, first part with int16 and GPIO3->MODER casts the 32 bit register into 16-bit halfwords (basically just separates it into two parts) so that the first is indexed as 0 (OFF) and second half controlling LEDs is 1. The '+1' points to the second halfword.
-	//*led_output_registers = 0x5555; // 0x5555 as binary is 01010101 which sets each pin (pe8-15) to output mode (to light up LEDs)
-//}
-
 // From W05-C-Interrupt, sets up interrupt on rising edge of PA0 (user button) so that when button is pressed, interrupt is initiated
 void enable_interrupt() {
 	// Disable the interrupts while messing around with the settings
-	//  otherwise can lead to strange behaviour
+	// otherwise can lead to strange behaviour
 	__disable_irq();
 
 	// Enable the system configuration controller (SYSCFG in RCC)
@@ -124,20 +108,6 @@ void TIM2_IRQHandler(void) {
     }
 }
 
-// Returns the current LED state- allows other parts of the program to retrieve the LED state without directly accessing the led_state variable.
-uint8_t get_led_state() {
-    return led_state;
-}
-
-// Set the LED state with encapsulation
-void set_led_state(uint8_t state) {
-    led_state = state;
-    uint8_t *led_register = ((uint8_t*)&(GPIOE->ODR)) + 1; // updates led_state and writes it to GPIOE output register (specifically bits 8–15, hence the offset).
-    // To control LEDs, need to write to bits 8-15 of ODR (output data register)
-    // Note that it is only uint8_t here (compared to uint16_t above) because each LED (PE8-15) uses only 1 bit in the ODR register compared to 2 in the MODER register.
-    *led_register = state;
-}
-
 
 // Set the button press callback function, Allows registering a function to call when the button is pressed
 // The function set_button_callback() allows the user to pass in a function pointer. This pointer is stored in the button_callback variable, so whenever the button is pressed, the corresponding function can be called.
@@ -164,16 +134,6 @@ void initialise_digital_io() {
 
     // Configure PA0 (button) as input
     GPIOA->MODER &= ~(0x3 << (0 * 2));
-}
-
-// LED toggle, button check, and wait functions
-//Toggle: XOR current LED bits to toggle them.
-// is_button_pressed: checks if PA0 is high.
-// wait_for_button_press/release: blocking loops for button status.
-// Toggle LEDs (PE8-15)
-void toggle_leds() {
-	 uint8_t *led_register = ((uint8_t*)&(GPIOE->ODR)) + 1;
-	 *led_register ^= get_led_state();
 }
 
 // Check if button is pressed (PA0 == 1)
