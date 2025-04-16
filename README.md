@@ -134,16 +134,16 @@ SerialInputString(buffer, buffer_size, &serialPort, terminating);
 
 
 ##### Test Cases
-Terminating character  
-    Input: hello#  
-    Output: buffer = hello#
+Terminating character
+- Input: hello#  
+- Output: buffer = hello#
 
-No terminating character  
+No terminating character
 - Input: hello  
 - Output: buffer = hello  
 Limitation - without terminating character program stays in receive loop writing for more characters
 
-Data > buffer size  
+Data > buffer size
 - Input: What A Wonderful World - Disney Land  
 - Output: buffer = What A Wonderful World - Disney
 
@@ -189,17 +189,17 @@ serial_port->completion_function(start_of_string, counter); //callback function
 ##### Test Cases
 These test cases are based on callBackFunction retransmitting the received string
 
-Terminating Character  
-	Input: Hello#  
-	Output: cutecom - Hello#
+Terminating Character
+- Input: Hello#  
+- Output: cutecom - Hello#
 
-No Terminating Character  
-	Input: Hello  
-	Output: cutecom - 
+No Terminating Character
+- Input: Hello  
+- Output: cutecom - 
 
-Data > buffer size  
-	Input: What A Wonderful World - Disney Land  
-	Output: cutecom - What A Wonderful World - Disney
+Data > buffer size
+- Input: What A Wonderful World - Disney Land  
+- Output: cutecom - What A Wonderful World - Disney
 
 
 #### Part C:
@@ -334,8 +334,8 @@ enableInterrupt()
 
 ##### Test Cases
 Upper case, lower case, numbers and special characters  
-	Input: send_data = GoTeam2025!!!  
-	Output: Cutecom - GoTeam2025!!!
+- Input: send_data = GoTeam2025!!!  
+- Output: Cutecom - GoTeam2025!!!
 
 #### Part D: Double Buffer
 The program receives and processes data using a double buffer, so that new data can be received in the middle of processing previous data without overwriting any of it. 
