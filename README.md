@@ -85,36 +85,55 @@ Exercise 1 interfaces the LEDs and buttons for the STM32F3 discovery board to de
 #### Part A:
 Data is received from a UART into a designated buffer. If the data is larger than the designated buffer size the extra characters will not be stored. 
 ##### Modular Design
-<pre> 
-   Main:
-	Initialise serial port
+Input: buffer, serial port, terminating character
+Output: received data will be loaded into buffer
 
-   SerialInputString(buffer, serial_port, terminating character){
-   Initialise a counter
-   Calculate buffer length
-   
-   SerialInputChar()
-   While (character != terminating character){
-   	If counter > buffer length {
-   		Break
-   	}
-   	SerialInputChar()
-   }
-   }
-   
-   SerialInputChar(){
-   	Check ready to receive flag 
-   Buffer = incoming character
-   }
+<pre> 
+Main{
+	Initialise serial port
+	Initialise buffer
+	Calculate buffer size
+	Initialise terminating character
+}
+
+SerialInputString(buffer, buffer size, serial_port, terminating character){
+Initialise a counter
+Initialize pointer to start of buffer
+
+SerialInputChar()
+Increment counter
+
+While (character != terminating character){
+	If counter > buffer length {
+		Break
+	}
+	SerialInputChar()
+	Increment counter
+}
+}
+
+SerialInputChar(){
+	Check ready to receive flag 
+Buffer = incoming character
+}
 </pre>
 
 ##### Logic Description
-When SerialInputString is called the program will enter SerialInputChar and loop there until the ready to receive flag is on. The program will then load the first character into the buffer, return to SerialInputString and check if this character was the terminating character. If not, SerialInputChar is continuously called until the terminating character is received. The program will then exit the function. Furthermore after each character is loaded into the buffer the counter is compared with buffer length, if the buffer is full the program exits the while loop and function meaning no further characters are received.
+When SerialInputString is called the program will enter SerialInputChar and loop there until the ready to receive flag is on. The program will then load the first character into the buffer, return to SerialInputString and check if this character was the terminating character. If not, SerialInputChar is continuously called until the terminating character is received. The program will then exit the function. Furthermore after each character is loaded into the buffer the counter is compared with buffer length, if the buffer is full the program exits the while loop meaning no further characters are received.
 
 ##### User Instructions
-   1. Initialise your buffer, serial port and terminating character 
-   2. Insert the functions into your code.
-   3. Call SerialInputString with the arguments of your buffer, serial port and terminating character. 
+   1. Initialise your buffer, serial port and terminating character
+<pre>
+SerialInitialise(BAUD_115200, &serialPort)
+uint8_t terminating = '#';
+uint8_t buffer[32];
+uint32_t buffer_size = sizeof(buffer)/sizeof(buffer[0]);	
+</pre>
+   2. Call SerialInputString with the arguments of your buffer, serial port and terminating character.
+<pre>
+	SerialInputString(buffer, buffer_size, &serialPort, terminating);
+</pre>
+
 
 ##### Test Cases
 Terminating character
@@ -123,10 +142,118 @@ Output: buffer = hello#
 
 No terminating character
 Input: hello
-Output: buffer = 
+Output: buffer = hello
+Limitation - without terminating character program stays in receive loop writing for more characters
 
 Data > buffer size
 Input: What A Wonderful World - Disney Land
-Output: buffer = 
+Output: buffer = What A Wonderful World - Disney
 
+#### Part B:
+
+##### Modular Design
+<pre> 
+
+</pre>
+
+##### Logic Description
+
+
+##### User Instructions
+   1. Initialise your buffer, serial port and terminating character
+<pre>
+	
+</pre>
+   3. Insert the functions into your code.
+<pre>
+	
+</pre>
+   5. Call SerialInputString with the arguments of your buffer, serial port and terminating character.
+<pre>
+	
+</pre>
+
+##### Test Cases
+
+#### Part C:
+
+##### Modular Design
+<pre> 
+
+</pre>
+
+##### Logic Description
+
+
+##### User Instructions
+   1. Initialise your buffer, serial port and terminating character
+<pre>
+	
+</pre>
+   3. Insert the functions into your code.
+<pre>
+	
+</pre>
+   5. Call SerialInputString with the arguments of your buffer, serial port and terminating character.
+<pre>
+	
+</pre>
+
+##### Test Cases
+
+#### Part D:
+
+#### Transmit Interrupt
+
+##### Modular Design
+<pre> 
+
+</pre>
+
+##### Logic Description
+
+
+##### User Instructions
+   1. Initialise your buffer, serial port and terminating character
+<pre>
+	
+</pre>
+   3. Insert the functions into your code.
+<pre>
+	
+</pre>
+   5. Call SerialInputString with the arguments of your buffer, serial port and terminating character.
+<pre>
+	
+</pre>
+
+##### Test Cases
+
+#### Part D:
+
+#### Double Buffer
+
+##### Modular Design
+<pre> 
+
+</pre>
+
+##### Logic Description
+
+
+##### User Instructions
+   1. Initialise your buffer, serial port and terminating character
+<pre>
+	
+</pre>
+   3. Insert the functions into your code.
+<pre>
+	
+</pre>
+   5. Call SerialInputString with the arguments of your buffer, serial port and terminating character.
+<pre>
+	
+</pre>
+
+##### Test Cases
 
