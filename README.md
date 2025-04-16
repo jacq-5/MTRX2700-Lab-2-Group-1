@@ -695,10 +695,5 @@ Largely, `blink_led1` and `blink_led2` have been used for debugging and display 
 #### Summary of Modularity
 - Clean separation between TIM2 and TIM3 allows for concurrent periodic and one-shot functionality.
 - Callback functions are passed as function pointers, enabling reusable, flexible code.
-- Common configurations (e.g., prescaler, ARR setting, update forcing) are abstracted into helper functions for clarity and reuse.
-- Assembly annotations help validate correctness at the register level, useful for debugging low-level behavior.
-
-Data > buffer size
-- Input: What a wonderful world! Disneyland is magical :)
-- Output: What a wonderful world! Disneyl
-
+- Common configurations (e.g., prescaler, ARR setting, update forcing) are abstracted into helper functions.
+- Assembly annotations to help with general low level hardware code flow.
