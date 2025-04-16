@@ -85,9 +85,8 @@ Exercise 1 interfaces the LEDs and buttons for the STM32F3 discovery board to de
 #### Part A:
 Data is received from a UART into a designated buffer. If the data is larger than the designated buffer size the extra characters will not be stored. 
 ##### Modular Design
-Input: buffer, serial port, terminating character
+Input: buffer, serial port, terminating character  
 Output: received data will be loaded into buffer
-
 <pre> 
 Main{
 	Initialise serial port
@@ -136,44 +135,73 @@ uint32_t buffer_size = sizeof(buffer)/sizeof(buffer[0]);
 
 
 ##### Test Cases
-Terminating character
-Input: hello#
+Terminating character  
+Input: hello#  
 Output: buffer = hello#
 
-No terminating character
-Input: hello
-Output: buffer = hello
+No terminating character  
+Input: hello  
+Output: buffer = hello  
 Limitation - without terminating character program stays in receive loop writing for more characters
 
-Data > buffer size
-Input: What A Wonderful World - Disney Land
+Data > buffer size  
+Input: What A Wonderful World - Disney Land  
 Output: buffer = What A Wonderful World - Disney
 
 #### Part B:
+Once a terminating character has been received a call back function will be called. This function is set when initialising the serial port.
 
 ##### Modular Design
-<pre> 
+Input: buffer, serial port, terminating character, callback function  
+Output: received data will be retransmitted to serial communication interface
 
+Same as part (a) but with the following additions to each function
+
+<pre> 
+Main{
+	Initialise serial port including the call back function argument
+	[part (a) code]
+}
+
+callBackFunction(buffer, counter){
+	Insert function code
+}
+
+SerialInputString(buffer, buffer size, serial_port, terminating character){
+[part (a) code]	
+Call serial port callback function
+}
 </pre>
 
 ##### Logic Description
-
+The typedef Struct SerialPort has the function pointer completion function. The address of the desired call back function is passed into SerialInitialise and this is set as the serial ports completion function. Once the program has finished receiving data from the designated serial port in SerialInputString, this serial port’s completion function is called.
 
 ##### User Instructions
-   1. Initialise your buffer, serial port and terminating character
+   1. Initialise call back function by passing it’s address into SerialInitialise
 <pre>
-	
+SerialInitialise(BAUD_115200, &USART1_PORT, &callBackFunction);
 </pre>
-   3. Insert the functions into your code.
+   2. Call the callback function at end of SeriaInputString
 <pre>
-	
+serial_port->completion_function(start_of_string, counter); //callback function	
 </pre>
-   5. Call SerialInputString with the arguments of your buffer, serial port and terminating character.
-<pre>
-	
-</pre>
+   3. Follow instructions from part (a)
 
 ##### Test Cases
+These test cases are based on callBackFunction retransmitting the received string
+
+Terminating Character  
+Input: Hello#  
+Output: cutecom - Hello#
+
+No Terminating Character  
+Input: Hello  
+Output: cutecom - 
+
+Data > buffer size  
+Input: What A Wonderful World - Disney Land  
+Output: cutecom - What A Wonderful World - Disney
+
 
 #### Part C:
 
