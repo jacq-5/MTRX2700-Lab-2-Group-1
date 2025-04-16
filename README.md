@@ -87,8 +87,7 @@ Data is received from a UART into a designated buffer. If the data is larger tha
 ##### Modular Design
 Input: buffer, serial port, terminating character  
 Output: received data will be loaded into buffer
-<pre> 
-Main{
+<pre>Main{
 	Initialise serial port
 	Initialise buffer
 	Calculate buffer size
@@ -130,7 +129,7 @@ uint32_t buffer_size = sizeof(buffer)/sizeof(buffer[0]);
 </pre>
    2. Call SerialInputString with the arguments of your buffer, serial port and terminating character.
 <pre>
-	SerialInputString(buffer, buffer_size, &serialPort, terminating);
+SerialInputString(buffer, buffer_size, &serialPort, terminating);
 </pre>
 
 
@@ -157,7 +156,7 @@ Output: received data will be retransmitted to serial communication interface
 
 Same as part (a) but with the following additions to each function
 
-<pre> 
+<pre>
 Main{
 	Initialise serial port including the call back function argument
 	[part (a) code]
