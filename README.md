@@ -200,7 +200,8 @@ Data is received from a UART into a designated buffer. If the data is larger tha
 ##### Modular Design
 Input: buffer, serial port, terminating character  
 Output: received data will be loaded into buffer
-<pre>Main{
+```c
+Main{
 	Initialise serial port
 	Initialise buffer
 	Calculate buffer size
@@ -227,7 +228,7 @@ SerialInputChar(){
 	Check ready to receive flag 
 Buffer = incoming character
 }
-</pre>
+```
 
 ##### Logic Description
 When SerialInputString is called the program will enter SerialInputChar and loop there until the ready to receive flag is on. The program will then load the first character into the buffer, return to SerialInputString and check if this character was the terminating character. If not, SerialInputChar is continuously called until the terminating character is received. The program will then exit the function. Furthermore after each character is loaded into the buffer the counter is compared with buffer length, if the buffer is full the program exits the while loop meaning no further characters are received.
