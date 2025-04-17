@@ -699,7 +699,7 @@ Largely, `blink_led1` and `blink_led2` have been used for debugging and display 
 - Assembly annotations to help with general low level hardware code flow.
 
 
-#### Integration
+### Integration
 #### Code Description
 The Integration code was designed to use the modules created in the previous exercises without changing them. The program was developed to receive a command string from the serial port. The string is then parsed to determine which action was requested by the user. The input string to the serial port is made up of two parts, the command (which specifies what type of action is to occur) and the operand (which provides the data to be used in the action).
 
@@ -784,25 +784,84 @@ The user is to send a string containing the command and the operand in the seria
 
 SerialInputString() will read the characters from the serial port. Once a complete message (terminated with #) is received, it is passed to ParseInput().
 ParseInput() separates the command from the operand using the first space in the string.
+```c
+void SerialInputString(uint8_t *pt, SerialPort *serial_port, uint8_t terminating) {
+	uint32_t counter = 0;
+	uint8_t *start_of_string = pt;								/*initialise pointer to start of string
+																to pass to callback function*/
+
+	// Read first character
+	SerialInputChar(pt, serial_port);
+	counter++;
+
+	// Keep reading until terminating character is received
+	while (*pt != terminating) {
+		pt++;  													// Move pointer
+		SerialInputChar(pt, serial_port);
+		counter++;
+		/*if(counter >= buffer_size){
+		   break;
+		 }
+		 */
+	}
+
+	//serial_port->completion_function(start_of_string, counter); //callback function
+	ParseInput(start_of_string, counter);
+}
+```
 
 
 Based on the command:
 "led" converts a binary string to a byte and sends it to the set_led_state function as an input, which will then display the operand on the LEDs.
+```c
+if (strcmp(command, "led") == 0) {
+        // Convert binary string to byte and output to GPIO (stub here)
+        uint8_t led_state = (uint8_t)strtol(operand, NULL, 2);
+        // Send pattern to LEDs
+        set_led_state(led_state); //LED DISPLAY FUNCTION
+```
+
 "serial" sends the operand to the SerialOutputString function, which echoes the operand in the serial.
+```c
+} else if (strcmp(command, "serial") == 0) {
+        // Echo the operand back through serial
+        SerialOutputString(operand, &USART1_PORT);
+        SerialOutputString("\r\n", &USART1_PORT);
+```
+
 "oneshot" sends the operand to the StartOneshotTimer function, which starts a one-shot timer using the operand as duration in ms.
+```c
+} else if (strcmp(command, "oneshot") == 0) {
+        uint32_t duration = (uint32_t)strtoul(operand, NULL, 10);
+        StartOneShotTimer(duration, blink_leds36710);
+```
+
 "timer" sends the operand to the StartContinuousTimer function, which starts a repeating timer with the operand as the period in ms.
+```c
+} else if (strcmp(command, "timer") == 0) {
+        uint32_t period = (uint32_t)strtoul(operand, NULL, 10);
+        StartContinuousTimer(period, blink_leds4895);
+```
+
 If the command is not recognized, a message is returned over serial.
+```c
+} else {
+        SerialOutputString("Unknown command\r\n", &USART1_PORT);
+    }
+```
 
 
 #### User Instructions
 To run and test the integration code successfully, follow the instructions below. These steps assume the use of a PC with a serial terminal program (e.g., PuTTY or CuteCom) connected via USB to your STM32 board (instructions listed at beginning of file).
 
 Open the main.c file and upload the code to the board by running the program. Then navigate to the serial terminal program you are using, and type in a command with the following format:
+```c
 <command> <operand>#
-
-<command> = one of the supported action words (led, serial, oneshot, timer)
-<operand> = value for that command
-# = terminates the command
+```
+Where
+* <command> = one of the supported action words (led, serial, oneshot, timer)
+* <operand> = value for that command
+* # = terminates the command
 
 NOTE: You must include the # for the data to be read
 
