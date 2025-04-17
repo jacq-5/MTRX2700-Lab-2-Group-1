@@ -703,6 +703,8 @@ Largely, `blink_led1` and `blink_led2` have been used for debugging and display 
 - Assembly annotations to help with general low level hardware code flow.
 
 
+
+
 ### Integration
 #### Code Description
 The Integration code was designed to use the modules created in the previous exercises without changing them. The program was developed to receive a command string from the serial port. The string is then parsed to determine which action was requested by the user. The input string to the serial port is made up of two parts, the command (which specifies what type of action is to occur) and the operand (which provides the data to be used in the action).
@@ -909,12 +911,12 @@ hello#
 
 Input:
 ```c
-serial hello#
+serial hello world#
 ```
 Output:
 The serial terminal should display:
 ```c
-hello#
+hello world#
 ```
 
 
