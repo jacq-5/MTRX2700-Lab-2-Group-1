@@ -672,9 +672,43 @@ Output:
 	- Starts a continuous timer
 * Sends a response or error over serial if needed.
 
+How the ParseInput() function contributes to a modular design
+* The function deals solely with interpreting and acting on commands. It does not handle receiving input or output directly, which is handled by SerialInputString() and SerialOutputString() respectively.
+* New commands can be added by simply adding new if-else statements without modifying other parts of the program.
+* It uses strchr() to find the command/operand boundary and strncpy() to safely copy strings, which keeps parsing code self-contained and avoids duplication elsewhere.
+* If the input format is invalid, the function responds with an error message instead of crashing or executing undefined behavior.
+
+
+#### Logic Description
+The user is to send a string containing the command and the operand in the serial port.
+
+SerialInputString() will read the characters from the serial port. Once a complete message (terminated with #) is received, it is passed to ParseInput().
+ParseInput() separates the command from the operand using the first space in the string.
 ```c
-void ParseInput(uint8_t *input, uint8_t length) {
-    char *input_str = (char *)input;
+void SerialInputString(uint8_t *pt, SerialPort *serial_port, uint8_t terminating) {
+	uint32_t counter = 0;
+	uint8_t *start_of_string = pt;
+	// Read first character
+	SerialInputChar(pt, serial_port);
+	counter++;
+	// Keep reading until terminating character is received
+	while (*pt != terminating) {
+		pt++;  
+		SerialInputChar(pt, serial_port);
+		counter++;
+		/*if(counter >= buffer_size){
+		   break;
+		 }
+		 */
+	}
+	//serial_port->completion_function(start_of_string, counter); //callback function
+	ParseInput(start_of_string, counter);
+}
+```
+
+The first part of the ParseInput() function separates the command and the operand from the input string so they can be used in separate parts of the code.
+```c
+char *input_str = (char *)input;
 
     // Find the first space between command and operand
     char *space = strchr(input_str, ' ');
@@ -698,73 +732,7 @@ void ParseInput(uint8_t *input, uint8_t length) {
     // End string at new line
     char *newline = strpbrk(operand, "\r\n");
     if (newline) *newline = '\0';
-
-
-    if (strcmp(command, "led") == 0) {
-        // Convert binary string to byte and output to GPIO (stub here)
-        uint8_t led_state = (uint8_t)strtol(operand, NULL, 2);
-        // Example: send pattern to LEDs (replace with your actual LED function)
-        set_led_state(led_state); //LED DISPLAY FUNCTION
-
-    } else if (strcmp(command, "serial") == 0) {
-        // Echo the operand back through serial
-        SerialOutputString(operand, &USART1_PORT);
-        SerialOutputString("\r\n", &USART1_PORT);
-
-    } else if (strcmp(command, "oneshot") == 0) {
-        uint32_t duration = (uint32_t)strtoul(operand, NULL, 10);
-        StartOneShotTimer(duration, blink_leds36710); // Replace with timer input
-
-    } else if (strcmp(command, "timer") == 0) {
-        uint32_t period = (uint32_t)strtoul(operand, NULL, 10);
-        StartContinuousTimer(period, blink_leds4895); // Replace with timer input
-
-    } else {
-        SerialOutputString("Unknown command\r\n", &USART1_PORT);
-    }
-}
 ```
-
-How the ParseInput() function contributes to a modular design
-* The function deals solely with interpreting and acting on commands. It does not handle receiving input or output directly, which is handled by SerialInputString() and SerialOutputString() respectively.
-* New commands can be added by simply adding new if-else statements without modifying other parts of the program.
-* It uses strchr() to find the command/operand boundary and strncpy() to safely copy strings, which keeps parsing code self-contained and avoids duplication elsewhere.
-* If the input format is invalid, the function responds with an error message instead of crashing or executing undefined behavior.
-
-
-
-
-#### Logic Description
-The user is to send a string containing the command and the operand in the serial port.
-
-SerialInputString() will read the characters from the serial port. Once a complete message (terminated with #) is received, it is passed to ParseInput().
-ParseInput() separates the command from the operand using the first space in the string.
-```c
-void SerialInputString(uint8_t *pt, SerialPort *serial_port, uint8_t terminating) {
-	uint32_t counter = 0;
-	uint8_t *start_of_string = pt;								/*initialise pointer to start of string
-																to pass to callback function*/
-
-	// Read first character
-	SerialInputChar(pt, serial_port);
-	counter++;
-
-	// Keep reading until terminating character is received
-	while (*pt != terminating) {
-		pt++;  													// Move pointer
-		SerialInputChar(pt, serial_port);
-		counter++;
-		/*if(counter >= buffer_size){
-		   break;
-		 }
-		 */
-	}
-
-	//serial_port->completion_function(start_of_string, counter); //callback function
-	ParseInput(start_of_string, counter);
-}
-```
-
 
 Based on the command:
 "led" converts a binary string to a byte and sends it to the set_led_state function as an input, which will then display the operand on the LEDs.
