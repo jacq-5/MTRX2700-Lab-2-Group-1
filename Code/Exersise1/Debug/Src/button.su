@@ -1,0 +1,7 @@
+C:/Users/melli/Documents/2025/SEM1/MTRX2700/MTRX1700-Code-Repository-main/stm32f303-definitions/Core/Inc/core_cm4.h:1688:22:__NVIC_EnableIRQ	16	static
+C:/Users/melli/Documents/2025/SEM1/MTRX2700/MTRX1700-Code-Repository-main/stm32f303-definitions/Core/Inc/core_cm4.h:1816:22:__NVIC_SetPriority	16	static
+../Src/button.c:10:6:initialise_button	4	static
+../Src/button.c:17:6:enable_button_interrupt	8	static,ignoring_inline_asm
+../Src/button.c:31:6:set_button_callback	16	static
+../Src/button.c:36:9:is_button_pressed	4	static
+../Src/button.c:41:6:EXTI0_IRQHandler	8	static
