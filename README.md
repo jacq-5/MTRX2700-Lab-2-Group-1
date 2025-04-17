@@ -857,11 +857,12 @@ To run and test the integration code successfully, follow the instructions below
 Open the main.c file and upload the code to the board by running the program. Then navigate to the serial terminal program you are using, and type in a command with the following format:
 ```c
 <command> <operand>#
-```
+
 Where
 * <command> = one of the supported action words (led, serial, oneshot, timer)
 * <operand> = value for that command
 * # = terminates the command
+```
 
 NOTE: You must include the # for the data to be read
 
