@@ -709,6 +709,7 @@ The previous exercises above have code that is designed to act as independent mo
 Input:
 * uint8_t *input: A pointer to the buffer containing the full command string received via serial.
 * uint8_t length: The number of characters in the command string (including the command and operand).
+
 Output:
 * Executes one of the defined actions:
 	- Produces an LED output pattern
