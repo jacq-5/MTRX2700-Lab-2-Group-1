@@ -906,6 +906,18 @@ The serial terminal should display:
 ```c
 hello#
 ```
+
+Input:
+```c
+serial hello#
+```
+Output:
+The serial terminal should display:
+```c
+hello#
+```
+
+
 Input:
 ```c
 oneshot 3000#
@@ -919,6 +931,7 @@ oneshot 5000#
 ```
 Output:
 After a 5 second delay, an LED will turn on.
+
 
 Input:
 ```c
