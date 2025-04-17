@@ -72,10 +72,25 @@ void ParseInput(uint8_t *input) {
 
 // Select which mode to run
     if (strcmp(command, "led") == 0) {
+    	// Check if operand is exactly 8 characters long
+    	size_t len = strlen(operand);
+    	if (len != 8) {
+    	    SerialOutputString("Error: LED pattern must be exactly 8 bits\r\n", &USART1_PORT);
+    	    return;
+    	}
+
+    	// Check that operand contains only '0' or '1'
+    	for (size_t i = 0; i < len; ++i) {
+    	    if (operand[i] != '0' && operand[i] != '1') {
+    	        SerialOutputString("Error: LED pattern must contain only 1s and 0s\r\n", &USART1_PORT);
+    	        return;
+    	    }
+    	}
+
         // Convert binary string to byte and output to GPIO (stub here)
-        uint8_t led_value = (uint8_t)strtol(operand, NULL, 2);
-        // Example: send pattern to LEDs (replace with your actual LED function)
-        set_led_state(led_value); //LED DISPLAY FUNCTION
+        uint8_t led_state = (uint8_t)strtol(operand, NULL, 2);
+        // Send pattern to LEDs
+        set_led_state(led_state); //LED DISPLAY FUNCTION
 
     } else if (strcmp(command, "serial") == 0) {
         // Echo the operand back through serial
