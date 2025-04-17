@@ -76,7 +76,6 @@ The code can be debugged and flashed directly to the STM32 to run. However, addi
 - Add breakpoints in the main file underneath `if (leds.init())`, `if (button.init())`, and `init_timer()` as these all include checks that each function has been successfully flashed to the STM.
 - After running the code to the first breakpoint, LED 0 will turn on to indicate the GPIOE is configured.
 - After running the code to the second breakpoint, LED 1 will turn on to indicate the button is configured.
-- After running the code to the third breakpoint, LED 2 will turn on to indicate the timer is configured.
 - These LED states are then cleared so that the remainder of the project can be flashed to the LED without any interference from these checks.
 
 #### Part A:  
@@ -146,7 +145,7 @@ The only ways to access or modify `led_state` are through the functions in `led.
 
 #### Part D:
 
-To accomplish the advanced functionality, TIM2 on the STM32 was configured to generate periodic interrupts based on a user-defined time interval in milliseconds. It is designed for the user to specify the timer interval in `main` through the function call `init_timer(500)`.
+To accomplish the advanced functionality, TIM2 on the STM32 was configured to generate periodic interrupts based on a user-defined time interval in milliseconds. It is designed for the user to specify the timer interval in `main` through the function call `init_timer()`.
 
 ##### Modular Design
 ```c
@@ -191,7 +190,7 @@ The STM timer is driven by an 8 MHz timer clock (8 million ticks per second). To
 ```
 
 ##### User Instructions
-In main.c, input desired timer into `init_timer(500)`, where 500 is in milliseconds (i.e. 0.5 seconds). It should be half the length of time required between 'blinks' so setting it to 500 would result in an LED 'blink' every 1 second.
+In main.c, input desired timer into `init_timer(1000)`, where 1000 is in milliseconds (i.e. 1 second). It should be the length of time desired between 'blinks' so setting it to 1000 would result in an LED 'blink' every 1 second.
 
 ### Exercise 2: Serial Interface
 
