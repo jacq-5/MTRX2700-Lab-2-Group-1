@@ -595,11 +595,6 @@ void timer_init(uint32_t interval, callback_t cb) {
 	interval_ms = interval;
 
 	TIM2->PSC = 7999;               // 1ms tick
-	trigger_prescaler();            // Force prescaler reload
-	TIM2->ARR = interval_ms;
-	TIM2->DIER |= TIM_DIER_UIE;
-	TIM2->CR1  |= TIM_CR1_CEN;
-	NVIC_EnableIRQ(TIM2_IRQn);
 }
 ```
 
@@ -613,6 +608,8 @@ The one-shot mechanism is modular and uses a separate function pointer `oneshot_
 void start_oneshot_timer_TIM3(uint32_t delay_ms, callback_t cb) {
     oneshot_mode = 1;
     oneshot_callback = cb;
+}
+```
 
 #### LED Blinking
 - `blink_led1()` toggles PE8 for periodic events.
