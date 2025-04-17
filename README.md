@@ -709,26 +709,21 @@ void SerialInputString(uint8_t *pt, SerialPort *serial_port, uint8_t terminating
 The first part of the ParseInput() function separates the command and the operand from the input string so they can be used in separate parts of the code.
 ```c
 char *input_str = (char *)input;
-
     // Find the first space between command and operand
     char *space = strchr(input_str, ' ');
     if (!space) {
         SerialOutputString("Invalid command format\r\n", &USART1_PORT);
         return;
     }
-
     // Extract command
     size_t command_len = space - input_str;
     if (command_len >= 20) command_len = 19;
-
     char command[20] = {0};
     strncpy(command, input_str, command_len);
     command[command_len] = '\0';
-
     // Extract operand
     char operand[80] = {0};
     strncpy(operand, space + 1, sizeof(operand) - 1);
-
     // End string at new line
     char *newline = strpbrk(operand, "\r\n");
     if (newline) *newline = '\0';
