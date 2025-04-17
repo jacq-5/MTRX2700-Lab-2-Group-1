@@ -875,15 +875,12 @@ To run and test the integration code successfully, follow the instructions below
 
 Open the main.c file and upload the code to the board by running the program. Then navigate to the serial terminal program you are using, and type in a command with the following format:
 ```c
-<command> <operand>#
+<command> <operand>
 
 Where
 * <command> = one of the supported action words (led, serial, oneshot, timer)
 * <operand> = value for that command
-* # = terminates the command
 ```
-
-NOTE: You must include the # for the data to be read
 
 For a serial command to turn on the LEDs in a certain pattern, the command should be similar to: "led 10001010" The operand is a binary string that turns on/off the leds in this pattern.
 
@@ -898,14 +895,14 @@ For a serial command to trigger a continuous timer action, the command should be
 
 Input:
 ```c
-led 11110000#
+led 11110000
 ```
 Output:
 The first 4 LEDs should be on, and the last 4 should be off
 
 Input:
 ```c
-led 01010101#
+led 01010101
 ```
 Output:
 Every second LED should be on
@@ -913,35 +910,35 @@ Every second LED should be on
 
 Input:
 ```c
-serial hello#
+serial hello
 ```
 Output:
 The serial terminal should display:
 ```c
-hello#
+hello
 ```
 
 Input:
 ```c
-serial hello world#
+serial hello world
 ```
 Output:
 The serial terminal should display:
 ```c
-hello world#
+hello world
 ```
 
 
 Input:
 ```c
-oneshot 3000#
+oneshot 3000
 ```
 Output:
 After a 3 second delay, an LED will turn on.
 
 Input:
 ```c
-oneshot 5000#
+oneshot 5000
 ```
 Output:
 After a 5 second delay, an LED will turn on.
@@ -949,14 +946,14 @@ After a 5 second delay, an LED will turn on.
 
 Input:
 ```c
-timer 3000#
+timer 3000
 ```
 Output:
 An LED will turn on for 3 seconds, then turn off for 3 seconds, then turn back on for 3 seconds and continue cycling as such.
 
 Input:
 ```c
-timer 5000#
+timer 5000
 ```
 Output:
 An LED will turn on for 5 seconds, then turn off for 5 seconds, then turn back on for 3 seconds and continue cycling as such.
