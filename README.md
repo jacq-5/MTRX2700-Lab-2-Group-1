@@ -614,45 +614,12 @@ void start_oneshot_timer_TIM3(uint32_t delay_ms, callback_t cb) {
     oneshot_mode = 1;
     oneshot_callback = cb;
 
-    TIM3->CR1 = 0;
-    TIM3->CNT = 0;
-    TIM3->PSC = 7999;
-    TIM3->ARR = delay_ms;
-    TIM3->EGR |= TIM_EGR_UG;
-    TIM3->SR &= ~TIM_SR_UIF;
-    TIM3->DIER |= TIM_DIER_UIE;
-    TIM3->CR1 |= TIM_CR1_OPM | TIM_CR1_CEN;
-    NVIC_EnableIRQ(TIM3_IRQn);
-}
-```
-
 #### LED Blinking
 - `blink_led1()` toggles PE8 for periodic events.
 - `blink_led2()` toggles PE15 for one-shot visual feedback.
 
 Each blink function is isolated, modular, and registered via a callback mechanism.
 
-```c
-void blink_led1(void) {
-    const uint8_t mask = 0b00000001;
-    static uint8_t state = 0;
-    uint8_t *led_output_register = ((uint8_t*)&(GPIOE->ODR)) + 1;
-
-    state ^= mask;
-    *led_output_register = (*led_output_register & ~mask) | (state & mask);
-}
-```
-
-```c
-void blink_led2(void) {
-    const uint8_t mask = 0b10000000;
-    static uint8_t state = 0;
-    uint8_t *led_output_register = ((uint8_t*)&(GPIOE->ODR)) + 1;
-
-    state ^= mask;
-    *led_output_register = (*led_output_register & ~mask) | (state & mask);
-}
-```
 
 #### Logic
 
@@ -665,40 +632,12 @@ When the counter reaches ARR (i.e., the interval), the `TIM2_IRQHandler` checks 
 ##### Part B
 The function `reset_period` is used to input a new value for ARR to change the period of the timer (in milliseconds). This is done by passing the new value, assigning it to ARR, resetting the counter, and forcing an update event to kickstart the timer. This results in an immediate call to `blink_led1`, and the LED then blinks at the new interval.
 
-```c
-void reset_period(uint32_t period) {
-	interval_ms = period;
-	TIM2->ARR = interval_ms;
-	TIM2->CNT = 0;
-	TIM2->EGR |= TIM_EGR_UG;
-}
-```
 
-The function `get_period()` simply returns the current period, as `interval_ms` is globally defined:
-
-```c
-uint32_t get_period(void) {
-	return interval_ms;
-}
-```
 
 ##### Part C
 The function `timer_start_oneshot` is used, which takes in the interval in milliseconds and a callback function — similar to `timer_init`, but instead leverages TIM3 to create a separate clock that doesn't interfere with TIM2. Internally, it operates similarly using the same prescaler value.  
 However, unlike the periodic timer, once the interrupt fires in `TIM3_IRQHandler`, the timer is explicitly disabled inside the handler after calling the callback function. This ensures that the interrupt and timer do not repeat and act only once. This is typically done by clearing the `CEN` (Counter Enable) bit in `TIM3->CR1` after checking and clearing the UIF flag.
 
-```c
-void TIM3_IRQHandler(void) {
-    if (TIM3->SR & TIM_SR_UIF) {
-        TIM3->SR &= ~TIM_SR_UIF;
-        if (oneshot_mode && oneshot_callback) {
-            callback_t cb = oneshot_callback;
-            oneshot_callback = 0;
-            oneshot_mode = 0;
-            cb();  // One-shot callback
-        }
-    }
-}
-```
 
 #### Testing
 Largely, `blink_led1` and `blink_led2` have been used for debugging and display purposes:
