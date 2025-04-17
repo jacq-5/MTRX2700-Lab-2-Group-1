@@ -368,7 +368,7 @@ void InterruptInputString(buffer, terminating, buffer size, serial_port){
 ```
 
 ##### Logic Description
-In `enableInterrupts` USART1’s receive interrupt is enabled and it’s priority is set. The function called in the interrupt handler 'when_receiving_data' is defined. The main function then goes into an infinite loop and when data is sent to USART1 the interrupt handler `USART1_EXTI25_IRQHandler` is called. The interrupt handler checks if a function has been set and then calls 'when_receiving_data'. Once the terminating character has been received or the buffer is full all new characters will be loaded into a discard variable.
+In `enableInterrupts` USART1’s receive interrupt is enabled and it’s priority is set. The function called in the interrupt handler 'when_receiving_data' is defined. The main function then goes into an infinite loop and when data is sent to USART1 the interrupt handler `USART1_EXTI25_IRQHandler` is called. The interrupt handler checks if a function has been set and then calls 'when_receiving_data'. Sicne the interrupt is continually buffer and counter are static variables to ensure they don;t change between calls. Once the terminating character has been received or the buffer is full all new characters will be loaded into a discard variable.
 
 ##### User Instructions
    1. Initialise buffer, terminating character, buffer size and counter variables in their designated scopes. 
@@ -464,6 +464,18 @@ The program receives and processes data using a double buffer, so that new data 
 Input: `buffer, buffer_size, serial port`  
 Output: received data will be retransmitted to serial communication interface  
 ```c
+Main file scope:
+Initialise double buffer
+Calculate buffer size
+Initialize interrupt function pointer
+
+Serial.c file scope:
+initialise Kernel index
+initialise User index
+initialise Counter
+initialise still_reading flag
+intialise terminated flag
+
 Main{
 	enableInterrupts()
 	Set interrupt function to SerialInputStringdb
@@ -703,6 +715,8 @@ Largely, `blink_led1` and `blink_led2` have been used for debugging and display 
 - Assembly annotations to help with general low level hardware code flow.
 
 
+
+
 ### Integration
 #### Code Description
 The Integration code was designed to use the modules created in the previous exercises without changing them. The program was developed to receive a command string from the serial port. The string is then parsed to determine which action was requested by the user. The input string to the serial port is made up of two parts, the command (which specifies what type of action is to occur) and the operand (which provides the data to be used in the action).
@@ -861,15 +875,12 @@ To run and test the integration code successfully, follow the instructions below
 
 Open the main.c file and upload the code to the board by running the program. Then navigate to the serial terminal program you are using, and type in a command with the following format:
 ```c
-<command> <operand>#
+<command> <operand>
 
 Where
 * <command> = one of the supported action words (led, serial, oneshot, timer)
 * <operand> = value for that command
-* # = terminates the command
 ```
-
-NOTE: You must include the # for the data to be read
 
 For a serial command to turn on the LEDs in a certain pattern, the command should be similar to: "led 10001010" The operand is a binary string that turns on/off the leds in this pattern.
 
@@ -884,14 +895,14 @@ For a serial command to trigger a continuous timer action, the command should be
 
 Input:
 ```c
-led 11110000#
+led 11110000
 ```
 Output:
 The first 4 LEDs should be on, and the last 4 should be off
 
 Input:
 ```c
-led 01010101#
+led 01010101
 ```
 Output:
 Every second LED should be on
@@ -899,37 +910,50 @@ Every second LED should be on
 
 Input:
 ```c
-serial hello#
+serial hello
 ```
 Output:
 The serial terminal should display:
 ```c
-hello#
+hello
 ```
+
 Input:
 ```c
-oneshot 3000#
+serial hello world
+```
+Output:
+The serial terminal should display:
+```c
+hello world
+```
+
+
+Input:
+```c
+oneshot 3000
 ```
 Output:
 After a 3 second delay, an LED will turn on.
 
 Input:
 ```c
-oneshot 5000#
+oneshot 5000
 ```
 Output:
 After a 5 second delay, an LED will turn on.
 
+
 Input:
 ```c
-timer 3000#
+timer 3000
 ```
 Output:
 An LED will turn on for 3 seconds, then turn off for 3 seconds, then turn back on for 3 seconds and continue cycling as such.
 
 Input:
 ```c
-timer 5000#
+timer 5000
 ```
 Output:
-An LED will turn on for 5 seconds, then turn off for 5 seconds, then turn back on for 3 seconds and continue cycling as such.
+An LED will turn on for 5 seconds, then turn off for 5 seconds, then turn back on for 5 seconds and continue cycling as such.
