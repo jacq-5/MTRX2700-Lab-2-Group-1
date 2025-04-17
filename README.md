@@ -956,4 +956,4 @@ Input:
 timer 5000
 ```
 Output:
-An LED will turn on for 5 seconds, then turn off for 5 seconds, then turn back on for 3 seconds and continue cycling as such.
+An LED will turn on for 5 seconds, then turn off for 5 seconds, then turn back on for 5 seconds and continue cycling as such.
