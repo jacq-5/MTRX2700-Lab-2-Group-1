@@ -435,7 +435,7 @@ void InterruptOutputString(){
 ##### User Instructions
    1. Initialise the string you want to transmit, as well as it’s length and an index function in serial.c file scope
 <pre>
-uint8_t *send_data = "send it!!";
+uint8_t *send_data = "GoTeam2025!!!";
 uint8_t txIndex = 0;
 uint8_t txLength = 9;	
 </pre>
@@ -539,6 +539,10 @@ Multiple Inputs
 - Output: Cutecom -   
 Data1  
 Data2
+
+data length > buffer size
+- Input: What a wonderful world! Disneyland is magical :)
+- Output: What a wonderful world! Disneyl
 
 
 #### Exercise 3: Timer Interface
