@@ -24,6 +24,17 @@ void finished_transmission(uint32_t bytes_sent) {
 }
 
 
+void is_numeric(const char *str) {
+    while (*str) {
+        if (*str < '0' || *str > '9') {
+            return 0; // Not a number
+        }
+        str++;
+    }
+    return 1; // Valid number
+}
+
+
 int main(void)
 {
 
@@ -98,10 +109,19 @@ void ParseInput(uint8_t *input) {
         SerialOutputString("\r\n", &USART1_PORT);
 
     } else if (strcmp(command, "oneshot") == 0) {
+
+	if (!is_numeric(operand)) {
+        	SerialOutputString("Error: oneshot requires a numeric operand\r\n", &USART1_PORT);
+        	return;
+  	}
         uint32_t duration = (uint32_t)strtoul(operand, NULL, 10);
         StartOneShotTimer(duration); // Replace with timer input
 
     } else if (strcmp(command, "timer") == 0) {
+	if (!is_numeric(operand)) {
+        	SerialOutputString("Error: timer requires a numeric operand\r\n", &USART1_PORT);
+       		return;
+   	}
         uint32_t period = (uint32_t)strtoul(operand, NULL, 10);
         StartContinuousTimer(period); // Replace with timer input
 
