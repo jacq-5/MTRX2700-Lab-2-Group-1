@@ -368,7 +368,7 @@ void InterruptInputString(buffer, terminating, buffer size, serial_port){
 ```
 
 ##### Logic Description
-In `enableInterrupts` USART1’s receive interrupt is enabled and it’s priority is set. The function called in the interrupt handler 'when_receiving_data' is defined. The main function then goes into an infinite loop and when data is sent to USART1 the interrupt handler `USART1_EXTI25_IRQHandler` is called. The interrupt handler checks if a function has been set and then calls 'when_receiving_data'. Once the terminating character has been received or the buffer is full all new characters will be loaded into a discard variable.
+In `enableInterrupts` USART1’s receive interrupt is enabled and it’s priority is set. The function called in the interrupt handler 'when_receiving_data' is defined. The main function then goes into an infinite loop and when data is sent to USART1 the interrupt handler `USART1_EXTI25_IRQHandler` is called. The interrupt handler checks if a function has been set and then calls 'when_receiving_data'. Sicne the interrupt is continually buffer and counter are static variables to ensure they don;t change between calls. Once the terminating character has been received or the buffer is full all new characters will be loaded into a discard variable.
 
 ##### User Instructions
    1. Initialise buffer, terminating character, buffer size and counter variables in their designated scopes. 
@@ -464,6 +464,18 @@ The program receives and processes data using a double buffer, so that new data 
 Input: `buffer, buffer_size, serial port`  
 Output: received data will be retransmitted to serial communication interface  
 ```c
+Main file scope:
+Initialise double buffer
+Calculate buffer size
+Initialize interrupt function pointer
+
+Serial.c file scope:
+initialise Kernel index
+initialise User index
+initialise Counter
+initialise still_reading flag
+intialise terminated flag
+
 Main{
 	enableInterrupts()
 	Set interrupt function to SerialInputStringdb
