@@ -867,3 +867,65 @@ Where
 
 NOTE: You must include the # for the data to be read
 
+For a serial command to turn on the LEDs in a certain pattern, the command should be similar to: "led 10001010" The operand is a binary string that turns on/off the leds in this pattern.
+
+For a serial command to cause the message to be sent back through the serial port, the command should be similar to "serial This is a string that should be written back to the serial port" the operand is a string that should be transmitted over the serial
+
+For a serial command to trigger a one-shot timer action, the command should be similar to: "oneshot 1000" the operand is a number that is the number of milliseconds for the one shot timer to run.
+
+For a serial command to trigger a continuous timer action, the command should be similar to: "timer 1000" the operand is a number that is the number of milliseconds for the timer period
+
+
+#### Test Cases
+
+Input:
+```c
+led 11110000#
+```
+Output:
+The first 4 LEDs should be on, and the last 4 should be off
+
+Input:
+```c
+led 01010101#
+```
+Output:
+Every second LED should be on
+
+
+Input:
+```c
+serial hello#
+```
+Output:
+The serial terminal should display:
+```c
+hello#
+```
+Input:
+```c
+oneshot 3000#
+```
+Output:
+After a 3 second delay, an LED will turn on.
+
+Input:
+```c
+oneshot 5000#
+```
+Output:
+After a 5 second delay, an LED will turn on.
+
+Input:
+```c
+timer 3000#
+```
+Output:
+An LED will turn on for 3 seconds, then turn off for 3 seconds, then turn back on for 3 seconds and continue cycling as such.
+
+Input:
+```c
+timer 5000#
+```
+Output:
+An LED will turn on for 5 seconds, then turn off for 5 seconds, then turn back on for 3 seconds and continue cycling as such.
