@@ -697,3 +697,112 @@ Largely, `blink_led1` and `blink_led2` have been used for debugging and display 
 - Callback functions are passed as function pointers, enabling reusable, flexible code.
 - Common configurations (e.g., prescaler, ARR setting, update forcing) are abstracted into helper functions.
 - Assembly annotations to help with general low level hardware code flow.
+
+
+#### Integration
+#### Code Description
+The Integration code was designed to use the modules created in the previous exercises without changing them. The program was developed to receive a command string from the serial port. The string is then parsed to determine which action was requested by the user. The input string to the serial port is made up of two parts, the command (which specifies what type of action is to occur) and the operand (which provides the data to be used in the action).
+
+#### Modular Design
+The previous exercises above have code that is designed to act as independent modules and still be easily accessed to make the completed integration code. The ParseInput() function is the core logic module that enables the modular design. It is able to read the action command and choose the needed function from the required module without having to change any of the existing code.
+
+Input:
+* uint8_t *input: A pointer to the buffer containing the full command string received via serial.
+* uint8_t length: The number of characters in the command string (including the command and operand).
+Output:
+* Executes one of the defined actions:
+	- Produces an LED output pattern
+	- Echoes a string back to the serial
+	- Starts a one-shot timer
+	- Starts a continuous timer
+* Sends a response or error over serial if needed.
+
+```c
+void ParseInput(uint8_t *input, uint8_t length) {
+    char *input_str = (char *)input;
+
+    // Find the first space between command and operand
+    char *space = strchr(input_str, ' ');
+    if (!space) {
+        SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+        return;
+    }
+
+    // Extract command
+    size_t command_len = space - input_str;
+    if (command_len >= 20) command_len = 19;
+
+    char command[20] = {0};
+    strncpy(command, input_str, command_len);
+    command[command_len] = '\0';
+
+    // Extract operand
+    char operand[80] = {0};
+    strncpy(operand, space + 1, sizeof(operand) - 1);
+
+    // End string at new line
+    char *newline = strpbrk(operand, "\r\n");
+    if (newline) *newline = '\0';
+
+
+    if (strcmp(command, "led") == 0) {
+        // Convert binary string to byte and output to GPIO (stub here)
+        uint8_t led_state = (uint8_t)strtol(operand, NULL, 2);
+        // Example: send pattern to LEDs (replace with your actual LED function)
+        set_led_state(led_state); //LED DISPLAY FUNCTION
+
+    } else if (strcmp(command, "serial") == 0) {
+        // Echo the operand back through serial
+        SerialOutputString(operand, &USART1_PORT);
+        SerialOutputString("\r\n", &USART1_PORT);
+
+    } else if (strcmp(command, "oneshot") == 0) {
+        uint32_t duration = (uint32_t)strtoul(operand, NULL, 10);
+        StartOneShotTimer(duration, blink_leds36710); // Replace with timer input
+
+    } else if (strcmp(command, "timer") == 0) {
+        uint32_t period = (uint32_t)strtoul(operand, NULL, 10);
+        StartContinuousTimer(period, blink_leds4895); // Replace with timer input
+
+    } else {
+        SerialOutputString("Unknown command\r\n", &USART1_PORT);
+    }
+}
+```
+
+How the ParseInput() function contributes to a modular design
+* The function deals solely with interpreting and acting on commands. It does not handle receiving input or output directly, which is handled by SerialInputString() and SerialOutputString() respectively.
+* New commands can be added by simply adding new if-else statements without modifying other parts of the program.
+* It uses strchr() to find the command/operand boundary and strncpy() to safely copy strings, which keeps parsing code self-contained and avoids duplication elsewhere.
+* If the input format is invalid, the function responds with an error message instead of crashing or executing undefined behavior.
+
+
+
+
+#### Logic Description
+The user is to send a string containing the command and the operand in the serial port.
+
+SerialInputString() will read the characters from the serial port. Once a complete message (terminated with #) is received, it is passed to ParseInput().
+ParseInput() separates the command from the operand using the first space in the string.
+
+
+Based on the command:
+"led" converts a binary string to a byte and sends it to the set_led_state function as an input, which will then display the operand on the LEDs.
+"serial" sends the operand to the SerialOutputString function, which echoes the operand in the serial.
+"oneshot" sends the operand to the StartOneshotTimer function, which starts a one-shot timer using the operand as duration in ms.
+"timer" sends the operand to the StartContinuousTimer function, which starts a repeating timer with the operand as the period in ms.
+If the command is not recognized, a message is returned over serial.
+
+
+#### User Instructions
+To run and test the integration code successfully, follow the instructions below. These steps assume the use of a PC with a serial terminal program (e.g., PuTTY or CuteCom) connected via USB to your STM32 board (instructions listed at beginning of file).
+
+Open the main.c file and upload the code to the board by running the program. Then navigate to the serial terminal program you are using, and type in a command with the following format:
+<command> <operand>#
+
+<command> = one of the supported action words (led, serial, oneshot, timer)
+<operand> = value for that command
+# = terminates the command
+
+NOTE: You must include the # for the data to be read
+
