@@ -1,4 +1,0 @@
-../Src/led.c:7:6:initialise_leds	1
-../Src/led.c:13:6:set_led_state	1
-../Src/led.c:19:9:get_led_state	1
-../Src/led.c:23:6:toggle_leds	1
