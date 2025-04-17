@@ -1,8 +1,6 @@
 /*
  * Integration.c
  *
- *  Created on: Apr 15, 2025
- *      Author: haileythill-turke
  */
 
 #include "serial.h"

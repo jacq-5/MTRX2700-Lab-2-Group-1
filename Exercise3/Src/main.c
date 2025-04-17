@@ -29,7 +29,7 @@ static uint8_t oneshot_mode = 0;         // 0 = normal, 1 = oneshot
 static callback_t oneshot_callback = 0;  // Separate callback for one-shot
 
 
-// === Enable clocks for GPIOE and TIM2 ===
+// Enable clocks for GPIOE and TIM2
 void enable_clocks() {
 	RCC->AHBENR  |= RCC_AHBENR_GPIOEEN;
 
@@ -52,7 +52,7 @@ void enable_clocks() {
 	RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
 }
 
-// === Configure PE8–PE15 as output ===
+// Configure PE8–PE15 as output
 void initialise_board() {
 	uint16_t *led_output_registers = ((uint16_t *)&(GPIOE->MODER)) + 1;
 	*led_output_registers = 0x5555;
@@ -66,7 +66,7 @@ void initialise_board() {
 	*/
 }
 
-// === Force prescaler reload ===
+// Force prescaler reload
 void trigger_prescaler() {
 	TIM2->ARR = 0x01;
 	TIM2->CNT = 0x00;
@@ -92,8 +92,7 @@ void trigger_prescaler() {
 	STR R1, [R0]
 	*/
 }
-
-// === Initialize TIM2 to generate periodic interrupts ===
+// Initialize TIM2 to generate periodic interrupts
 void timer_init(uint32_t interval, callback_t cb) {
 	user_callback = cb;
 	interval_ms = interval;
@@ -132,8 +131,26 @@ void timer_init(uint32_t interval, callback_t cb) {
 
 	NVIC_EnableIRQ(TIM2_IRQn);           // NVIC global IRQ enable
 }
+// Call callback if UIF (periodic)
+void TIM2_IRQHandler(void) {
+	if (TIM2->SR & TIM_SR_UIF) {
+		TIM2->SR &= ~TIM_SR_UIF;  // Clear update flag
 
-// === Change the timer period dynamically ===
+		if (user_callback) {
+			user_callback();  // Periodic callback
+		}
+	}
+}
+// Function to blink one led
+void blink_led1(void) {
+    uint8_t *led_output_register = ((uint8_t*)&(GPIOE->ODR)) + 1;
+    static uint8_t state = 0;
+    const uint8_t mask = 0b00000001;  // Blink PE8, PE10, PE12, PE14
+
+    state ^= mask;
+    *led_output_register = (*led_output_register & ~mask) | (state & mask);
+}
+// Change TIM2 period
 void reset_period(uint32_t period) {
 	interval_ms = period;
 	TIM2->ARR = interval_ms;
@@ -156,22 +173,12 @@ void reset_period(uint32_t period) {
 	*/
 }
 
-// === Return the current timer period ===
+// Return period
 uint32_t get_period(void) {
 	return interval_ms;
 }
 
-void TIM2_IRQHandler(void) {
-	if (TIM2->SR & TIM_SR_UIF) {
-		TIM2->SR &= ~TIM_SR_UIF;  // Clear update flag
-
-		if (user_callback) {
-			user_callback();  // Periodic callback
-		}
-	}
-}
-
-
+// Call callback if UIF (oneshot)
 void TIM3_IRQHandler(void) {
     if (TIM3->SR & TIM_SR_UIF) {
         TIM3->SR &= ~TIM_SR_UIF;  // Clear update flag
@@ -209,11 +216,11 @@ void start_oneshot_timer_TIM3(uint32_t delay_ms, callback_t cb) {
 
 
 
-// === Blink LEDs on PE8–15 ===
-void blink_leds36710(void) {
+// Blink LED on PE15
+void blink_led2(void) {
     uint8_t *led_output_register = ((uint8_t*)&(GPIOE->ODR)) + 1;
     static uint8_t state = 0;
-    const uint8_t mask = 0b10000000;  // Blink only PE9, PE11, PE13, PE15
+    const uint8_t mask = 0b10000000;
 
     state ^= mask;  // Toggle only bits in the mask
     *led_output_register = (*led_output_register & ~mask) | (state & mask);
@@ -227,33 +234,24 @@ void blink_leds36710(void) {
 	STRB R1, [R0, #1]
 	*/
 }
-// === Blink LEDs on PE8–15 ===
-void blink_leds4895(void) {
-    uint8_t *led_output_register = ((uint8_t*)&(GPIOE->ODR)) + 1;
-    static uint8_t state = 0;
-    const uint8_t mask = 0b00000001;  // Blink PE8, PE10, PE12, PE14
-
-    state ^= mask;
-    *led_output_register = (*led_output_register & ~mask) | (state & mask);
-}
 
 
+volatile uint32_t current_period = 0;
 // === Main program ===
 int main(void) {
 	enable_clocks();                     // Enable GPIOE and TIM2 clocks
 	initialise_board();                  // Set PE8–15 as output
-	// timer_init(1000, blink_leds36710);        // Call blink_leds every 1000ms
-
+	timer_init(1000, blink_led1);        // Call blink_leds every 1000ms
+	current_period = get_period();
 	for (volatile int i = 0; i < 8000000; ++i);  // Simple delay
-	blink_leds36710();
-	start_oneshot_timer_TIM3(2000, blink_leds4895);  // Call blink_leds4895 after 2 seconds
+	blink_led2();
+	start_oneshot_timer_TIM3(2000, blink_led2);  // Call blink_leds4895 after 2 seconds
 
 	for (volatile int i = 0; i < 8000000; ++i);  // Simple delay
 	reset_period(5000);                  // Change period to 5s
-
+	current_period = get_period();
 
 	while (1) {
 
 	}
 }
-
