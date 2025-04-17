@@ -35,16 +35,20 @@ SerialPort USART1_PORT = {USART1,
 		};
 
 //definitions for TXI
-uint8_t *send_data = "send it!!";
+uint8_t *send_data = "send it!!\n";
 uint8_t txIndex = 0;
 uint8_t txLength = 9;
+
+//definition for RXI
+uint8_t excess_buffer[100];
+uint8_t counter = 0;
 
 //definitions for double buffer
 uint8_t uartKernel = 0;
 uint8_t uartUser = 1;
 uint8_t bufferCounter[2];
-//uint8_t userBufferReady = 0;
 uint8_t still_reading = 0;
+uint8_t terminated = 0;
 
 // InitialiseSerial - Initialise the serial port
 // Input: baudRate is from an enumerated set
@@ -106,15 +110,15 @@ void SerialInitialise(uint32_t baudRate, SerialPort *serial_port, void (*complet
 
 
 void SerialOutputChar(uint8_t data, SerialPort *serial_port) {
-
-	while((serial_port->UART->ISR & USART_ISR_TXE) == 0){		//check ready to transmit flag
+	//check ready to transmit flag
+	while((serial_port->UART->ISR & USART_ISR_TXE) == 0){
 	}
 
-	serial_port->UART->TDR = data;								//load data into transmit data register
+	//load data into transmit data register
+	serial_port->UART->TDR = data;
 }
 
 void SerialInputChar(uint8_t *data, SerialPort *serial_port) {
-
 	// check ready to receive flag
     while ((serial_port->UART->ISR & USART_ISR_RXNE) == 0) {
     }
@@ -123,21 +127,6 @@ void SerialInputChar(uint8_t *data, SerialPort *serial_port) {
     *data = (uint8_t)(serial_port->UART->RDR); 					// Reading RDR clears RXNE
 }
 
-//serial_port->UART->ICR |= USART_ICR_FECF | USART_ICR_ORECF;
-
-//serial_port->UART->ICR |= (USART_ICR_ORECF | USART_ICR_FECF);
-
-
-// Wait until a character is received
-
-// Check for Overrun Error (ORE) and clear it
-/*if (serial_port->UART->ISR & (USART_ISR_ORE | USART_ISR_FE) != 0){
-	(void)serial_port->UART->RDR;
-	serial_port->UART->ICR |= USART_ICR_FECF | USART_ICR_ORECF;
-}
-*/
-
-
 void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
 
 	//continues to transmit while there are still characters to send
@@ -145,14 +134,14 @@ void SerialOutputString(uint8_t *pt, SerialPort *serial_port) {
 		SerialOutputChar(*pt, serial_port);
 		pt++;
 	}
+	SerialOutputChar('\n', serial_port);
 
 }
 
-void SerialInputString(uint8_t *pt, SerialPort *serial_port, uint8_t terminating) {
+void SerialInputString(uint8_t *pt, uint32_t buffer_size, SerialPort *serial_port, uint8_t terminating) {
 	uint32_t counter = 0;
-	uint8_t *start_of_string = pt;								/*initialise pointer to start of string
-																to pass to callback function*/
-	//uint8_t buffer_size = sizeof(pt) / sizeof(pt[0]); //this may not work because of pointer
+	uint8_t *start_of_string = pt;		/*initialise pointer to start of string
+										to pass to callback function*/
 
 	// Read first character
 	SerialInputChar(pt, serial_port);
@@ -160,24 +149,21 @@ void SerialInputString(uint8_t *pt, SerialPort *serial_port, uint8_t terminating
 
 	// Keep reading until terminating character is received
 	while (*pt != terminating) {
-		pt++;  													// Move pointer
-		SerialInputChar(pt, serial_port);
-		counter++;
-		/*if(counter >= buffer_size){
+		if(counter > buffer_size){
 		   break;
 		 }
-		 */
+		pt++;  							// Move pointer
+		SerialInputChar(pt, serial_port);
+		counter++;
 	}
 
-	//serial_port->completion_function(start_of_string, counter); //callback function
-	ParseInput(start_of_string, counter);
+	serial_port->completion_function(start_of_string, counter); //callback function
+	//ParseInput(start_of_string, counter);
 }
 
 void InterruptOutputChar(){
-	while((USART1_PORT.UART->ISR & USART_ISR_TXE) == 0){		//try commenting this out, dont think i need it
-		}
-
-	if (txIndex < txLength) {									//whilst there's still characters send
+	//check there's still more characters to send
+	if (txIndex < txLength) {
 		USART1_PORT.UART->TDR = send_data[++txIndex];
 	}
 
@@ -190,53 +176,55 @@ void InterruptOutputChar(){
 void InterruptOutputString(){
 		when_sending_data = &InterruptOutputChar;				//initialise interrupt function
 
-		SerialOutputChar(send_data[txIndex], &USART1_PORT);
+		SerialOutputChar(send_data[txIndex], &USART1_PORT);		//transmit first character
 
 		USART1->CR1 |= USART_CR1_TXEIE; 						//enable transmit interrupt
 
 }
 
-void InterruptInputString(uint8_t *buffer, SerialPort *serial_port){
-	if ((serial_port->UART->ISR & USART_ISR_RXNE) != 0){		//check if I need the if statement
-		*buffer = (uint8_t)(serial_port->UART->RDR);
+void InterruptInputString(uint8_t buffer[], uint8_t terminating, uint32_t buffer_size, SerialPort *serial_port){
+	//check terminating character has not been received and buffer is not full
+	if((counter > 0) && (buffer[counter - 1] == terminating) || counter >= buffer_size){
+		uint8_t discard = (uint8_t)(serial_port->UART->RDR);	//discard excess characters
+	}
+	//otherwise load next character into buffer
+	else{
+		buffer[counter] = (uint8_t)(serial_port->UART->RDR);
+		counter++;
+	}
+}
+
+void SerialInputStringdb(uint8_t buffer[][32], uint32_t buffer_size, SerialPort *serial_port) {
+	uint8_t received_char = (uint8_t)(serial_port->UART->RDR);
+
+	if(received_char != '#' && terminated == 0 && bufferCounter[uartKernel] < buffer_size){
+		//load data into kernel buffer and increment kernel buffer counter
+		buffer[uartKernel][bufferCounter[uartKernel]] = received_char;
+		bufferCounter[uartKernel] ++;
+	}
+	else{
+		terminated = 1;			/*terminating character has been received
+								so no new data will be loaded into the buffer*/
 	}
 
+	if(received_char == '\n'){
+	   if(still_reading == 0){		/*if program was in the middle of processing
+									other buffer returns to that step*/
+		   terminated = 0;			//resets terminated state
+		   InputLogic(buffer);		//calls logic function to process this data
+	   }
+	}
 }
-
-void SerialInputStringdb(uint8_t buffer[][32], SerialPort *serial_port) {
-		//load data into kernel buffer and increment kernel buffer counter
-	    if ((serial_port->UART->ISR & USART_ISR_RXNE) != 0){
-	    	buffer[uartKernel][bufferCounter[uartKernel]] = (uint8_t)(serial_port->UART->RDR);
-	    	bufferCounter[uartKernel] ++;
-	    }
-
-	   if(buffer[uartKernel][bufferCounter[uartKernel] - 1] == '#'){
-		   if(still_reading == 0){		/*if program was in the middle of processing
-			   	   	   	   	   	   	   	other buffer returns to that step*/
-			   InputLogic(buffer);		//if it wasn't calls logic function to process this data
-		   }
-	    }
-}
-
-//alternate
-/*uint8_t SerialInputStringdb(uint8_t buffer[][32], SerialPort *serial_port) {
-		//load data into kernel buffer and increment kernel buffer counter
-	    if ((serial_port->UART->ISR & USART_ISR_RXNE) != 0){
-	    	buffer[uartKernel][bufferCounter[uartKernel]] = (uint8_t)(serial_port->UART->RDR);
-	    	bufferCounter[uartKernel] ++;
-	    }
-
-	   return buffer[uartKernel][bufferCounter[uartKernel]];
-}*/
 
 void InputLogic(uint8_t buffer[][32]){
 	//if data to be processed enter loop
 	if (bufferCounter[uartUser] > 0)
 	{
 		still_reading == 1;			//let's program know it's currently reading from one buffer
-		for(int i = 0; i <= bufferCounter[uartUser]; i++){
+		for(int i = 0; i < bufferCounter[uartUser]; i++){
 				SerialOutputChar(buffer[uartUser][i], &USART1_PORT);
 			}
+		//ParseInput(buffer[uartUser], bufferCounter[uartUser]);
 		still_reading == 0;			//lets program know it's done reading from that buffer
 	}
 	/*once finished processing data switches buffers and checks
@@ -249,10 +237,11 @@ void InputLogic(uint8_t buffer[][32]){
 }
 
 void switch_buffers(){
+	//switch buffer indexes
 	uartUser = (!uartUser) & 0x01;
 	uartKernel = (!uartKernel) & 0x01;
 
-	// Need to reset the counter for the ISR
+	//reset the counter for the ISR
 	bufferCounter[uartKernel] = 0;
 }
 

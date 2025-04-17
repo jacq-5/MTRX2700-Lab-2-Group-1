@@ -3,6 +3,7 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value="ParseInp"/>
 		<item value="USART1"/>
 		<item value="userBuf"/>
 		<item value="comple"/>

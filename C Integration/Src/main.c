@@ -28,14 +28,19 @@
 #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
 
-//initialise static variables
-uint8_t buffer[100];
-uint8_t excess_buffer[100];
-uint8_t counter = 0;
+//initialise static variables for receive interrupt
+uint8_t buffer[32];
+uint32_t buffer_size = sizeof(buffer)/sizeof(buffer[0]);
+uint8_t terminating = '#';
+
+//double buffer
 uint8_t double_buffer[2][32];
-uint8_t term_check = 0;
+uint8_t buffer_size_db = sizeof(double_buffer[0])/sizeof(double_buffer[0][0]) - 1;
 
-
+//intialise function pointers
+void (*when_receiving_data_db)(uint8_t [][32], uint32_t, SerialPort *) = 0x00;
+void (*when_receiving_data)(uint8_t [], uint8_t, uint32_t buffer_size, SerialPort *) = 0x00;
+void (*when_sending_data)() = 0x00;
 
 // This function will be called after a transmission is complete [callback function]
 void finished_transmission(uint8_t *rx_string, uint32_t bytes_sent) {
@@ -43,35 +48,17 @@ void finished_transmission(uint8_t *rx_string, uint32_t bytes_sent) {
 	SerialOutputString(rx_string, &USART1_PORT);
 }
 
-void (*when_receiving_data)(uint8_t [][32], SerialPort *) = 0x00;
-//void (*when_receiving_data)(uint8_t *, SerialPort *) = 0x00;
-void (*when_sending_data)() = 0x00;
-
 void USART1_EXTI25_IRQHandler(void)
 {
 	// run the USART receive handler (make sure it is not null first !)
 	if (when_receiving_data != 0x00) {
-		/*if(buffer[counter] != '#'){
-			when_receiving_data(&buffer[counter], &USART1_PORT);
-		}
-		if(buffer[counter] == '#'){
-			when_receiving_data(&excess_buffer[counter], &USART1_PORT);
-			}
-		else{
-			counter++;
-		}*/
+		when_receiving_data(buffer, terminating, buffer_size, &USART1_PORT);
+	}
 
-		//when_receiving_data(double_buffer, &USART1_PORT);
+	// run the USART receive handler for double buffer (make sure it is not null first !)
+	if (when_receiving_data_db != 0x00) {
+			when_receiving_data_db(buffer, buffer_size_db, &USART1_PORT);
 		}
-
-		/*
-		 * if(term_check != '#'){
-			term_check = when_receiving_data(double_buffer, &USART1_PORT);
-		}
-		else{
-			uint8_t discard = when_receiving_data(excess_buffer, &USART1_PORT);
-		}
-		 */
 
 	// run the USART transmit handler (make sure it is not null first !)
 	if (when_sending_data != 0x00) {
@@ -85,11 +72,12 @@ void enable_interrupt() {
     // Disable interrupts while messing around with settings
     __disable_irq();
 
-    USART1->CR1 |= USART_CR1_RXNEIE;	//enable receive interrupt
+    //enable receive interrupt
+    USART1->CR1 |= USART_CR1_RXNEIE;
 
 	// Enable USART1 interrupt in NVIC
 	NVIC_SetPriority(USART1_IRQn, 1);  // Set priority for USART1 interrupt
-	NVIC_EnableIRQ(USART1_IRQn);  // allows USART1 interrupt to occur
+	NVIC_EnableIRQ(USART1_IRQn);       // allows USART1 interrupt to occur
 
     // Re-enable interrupts
     __enable_irq();
@@ -99,36 +87,32 @@ void enable_interrupt() {
 
 int main(void)
 {
+//excersise 2 Serial Ports
 	SerialInitialise(BAUD_115200, &USART1_PORT, &finished_transmission); //set callback function
-
-	//part (b)
-	//void (*completion_function)(uint8_t *, uint32_t) = &finished_transmission; //test if i need this line
 
 	//part (a) and (b)
 	//uint8_t terminating = '#';
 	//SerialOutputString(send, &USART1_PORT);					//transmit string
-	//SerialInputString(buffer, &USART1_PORT, terminating);		//receive string
+	//SerialInputString(buffer, buffer_size, &USART1_PORT, terminating);		//receive string
 
 	//part (c)
-	//set the interrupt handling function
-	//when_receiving_data = &InterruptInputString;
-	//enable_interrupt();											// enable the interrupt for the USART
+	when_receiving_data = &InterruptInputString;				//set the interrupt handling function
+	enable_interrupt();											// enable the interrupt for the USART
 
 	//part (d)
+	//enable_interrupt();											// enable the interrupt for the USART
 	//InterruptOutputString();
 
-	//when_receiving_data = &SerialInputStringdb;
 
-	/*while(1){
-		InputLogic(double_buffer);
-	}*/
+	//when_receiving_data_db = &SerialInputStringdb;
+	//enable_interrupt();
 
-	//integration
-	uint8_t terminating = '#';
+//integration
+	/*uint8_t terminating = '#';
 	initialise_leds();
 	enable_clocks();                     // Enable GPIOE and TIM2 clocks
 	initialise_board();
-	SerialInputString(buffer, &USART1_PORT, terminating);
+	SerialInputString(buffer, &USART1_PORT, terminating);*/
 
 	/* Loop forever */
 		for(;;) {}

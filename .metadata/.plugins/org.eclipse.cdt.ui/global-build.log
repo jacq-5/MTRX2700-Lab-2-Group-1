@@ -4531,3 +4531,1796 @@ Finished building: default.size.stdout
  
 Finished building: C Integration.list
  
+13:16:13 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:254:31: warning: statement with no effect [-Wunused-value]
+  254 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:258:31: warning: statement with no effect [-Wunused-value]
+  258 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1624	     40	   1792	   3456	    d80	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+13:25:41 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/main.c:54:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   54 |                         when_receiving_data_db(buffer, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:54:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+../Src/serial.c: In function 'SerialInputStringdb':
+../Src/serial.c:232:33: warning: unused variable 'discard' [-Wunused-variable]
+  232 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:260:31: warning: statement with no effect [-Wunused-value]
+  260 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:264:31: warning: statement with no effect [-Wunused-value]
+  264 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1876	     44	   1700	   3620	    e24	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+13:27:44 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:261:31: warning: statement with no effect [-Wunused-value]
+  261 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:265:31: warning: statement with no effect [-Wunused-value]
+  265 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1876	     44	   1700	   3620	    e24	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+07:42:11 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:261:31: warning: statement with no effect [-Wunused-value]
+  261 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:265:31: warning: statement with no effect [-Wunused-value]
+  265 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/main.c:55:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   55 |                         when_receiving_data_db(buffer, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:55:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1464	     40	   1688	   3192	    c78	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+07:44:00 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'SerialInputString':
+../Src/serial.c:159:42: warning: division 'sizeof (uint8_t * {aka unsigned char *}) / sizeof (uint8_t {aka unsigned char})' does not compute the number of array elements [-Wsizeof-pointer-div]
+  159 |         uint8_t buffer_size = sizeof(pt) / sizeof(pt[0]); //this may not work because of pointer
+      |                                          ^
+../Src/serial.c:155:33: note: first 'sizeof' operand was declared here
+  155 | void SerialInputString(uint8_t *pt, SerialPort *serial_port, uint8_t terminating) {
+      |                        ~~~~~~~~~^~
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:260:31: warning: statement with no effect [-Wunused-value]
+  260 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/serial.c:264:31: warning: statement with no effect [-Wunused-value]
+  264 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/main.c:55:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   55 |                         when_receiving_data_db(buffer, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:55:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1480	     40	   1624	   3144	    c48	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+07:47:52 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/Integration.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/Integration.d" -MT"Src/Integration.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/Integration.o"
+arm-none-eabi-gcc "../Src/led.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/led.d" -MT"Src/led.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/led.o"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+arm-none-eabi-gcc "../Src/timers.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/timers.d" -MT"Src/timers.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/timers.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/main.c:55:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   55 |                         when_receiving_data_db(buffer, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:55:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+../Src/Integration.c: In function 'ParseInput':
+../Src/Integration.c:18:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   18 |         SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+In file included from ../Src/Integration.c:8:
+../Inc/serial.h:61:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   61 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:259:31: warning: statement with no effect [-Wunused-value]
+  259 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:263:31: warning: statement with no effect [-Wunused-value]
+  263 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/Integration.c:41:38: warning: implicit declaration of function 'strtol'; did you mean 'strtok'? [-Wimplicit-function-declaration]
+   41 |         uint8_t led_state = (uint8_t)strtol(operand, NULL, 2);
+      |                                      ^~~~~~
+      |                                      strtok
+../Src/Integration.c:47:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   47 |         SerialOutputString(operand, &USART1_PORT);
+      |                            ^~~~~~~
+      |                            |
+      |                            char *
+../Inc/serial.h:61:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   61 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/Integration.c:48:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   48 |         SerialOutputString("\r\n", &USART1_PORT);
+      |                            ^~~~~~
+      |                            |
+      |                            char *
+../Inc/serial.h:61:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   61 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/Integration.c:51:39: warning: implicit declaration of function 'strtoul'; did you mean 'strtok'? [-Wimplicit-function-declaration]
+   51 |         uint32_t duration = (uint32_t)strtoul(operand, NULL, 10);
+      |                                       ^~~~~~~
+      |                                       strtok
+../Src/Integration.c:59:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   59 |         SerialOutputString("Unknown command\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+../Inc/serial.h:61:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   61 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/main.c: In function 'main':
+../Src/main.c:89:9: error: 'buffer_size' undeclared (first use in this function)
+   89 |         buffer_size = sizeof(buffer)/sizeof(buffer[0]);
+      |         ^~~~~~~~~~~
+../Src/main.c:89:9: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Src/subdir.mk:37: Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j7 all" terminated with exit code 2. Build might be incomplete.
+07:48:09 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/main.c:55:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   55 |                         when_receiving_data_db(buffer, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:55:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1480	     40	   1624	   3144	    c48	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+07:49:08 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-size  C\ Integration.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1480	     40	   1624	   3144	    c48	C Integration.elf
+Finished building: default.size.stdout
+ 
+07:50:17 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:259:31: warning: statement with no effect [-Wunused-value]
+  259 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:263:31: warning: statement with no effect [-Wunused-value]
+  263 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1484	     40	   1624	   3148	    c4c	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+07:52:09 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:260:31: warning: statement with no effect [-Wunused-value]
+  260 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:264:31: warning: statement with no effect [-Wunused-value]
+  264 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1488	     40	   1624	   3152	    c50	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+08:15:04 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/serial.c:216:33: warning: unused variable 'discard' [-Wunused-variable]
+  216 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/main.c:55:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   55 |                         when_receiving_data_db(buffer, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:55:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:261:31: warning: statement with no effect [-Wunused-value]
+  261 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:265:31: warning: statement with no effect [-Wunused-value]
+  265 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1640	     40	   1624	   3304	    ce8	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+08:17:59 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:215:63: warning: 'sizeof' on array function parameter 'buffer' will return size of 'uint8_t *' {aka 'unsigned char *'} [-Wsizeof-array-argument]
+  215 |                 if(buffer[counter] == '#' || counter >= sizeof(buffer)/sizeof(buffer[0])){
+      |                                                               ^
+../Src/serial.c:210:35: note: declared here
+  210 | void InterruptInputString(uint8_t buffer[], SerialPort *serial_port){
+      |                           ~~~~~~~~^~~~~~~~
+../Src/serial.c:216:33: warning: unused variable 'discard' [-Wunused-variable]
+  216 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:261:31: warning: statement with no effect [-Wunused-value]
+  261 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:265:31: warning: statement with no effect [-Wunused-value]
+  265 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1648	     40	   1624	   3312	    cf0	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+08:22:29 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/Integration.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/Integration.d" -MT"Src/Integration.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/Integration.o"
+arm-none-eabi-gcc "../Src/led.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/led.d" -MT"Src/led.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/led.o"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+arm-none-eabi-gcc "../Src/timers.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/timers.d" -MT"Src/timers.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/timers.o"
+../Src/Integration.c: In function 'ParseInput':
+../Src/Integration.c:18:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   18 |         SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+In file included from ../Src/Integration.c:8:
+../Inc/serial.h:61:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   61 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/main.c:52:45: warning: passing argument 2 of 'when_receiving_data' makes pointer from integer without a cast [-Wint-conversion]
+   52 |                 when_receiving_data(buffer, buffer_size, &USART1_PORT);
+      |                                             ^~~~~~~~~~~
+      |                                             |
+      |                                             uint32_t {aka long unsigned int}
+../Src/main.c:52:45: note: expected 'SerialPort *' {aka 'struct _SerialPort *'} but argument is of type 'uint32_t' {aka 'long unsigned int'}
+../Src/main.c:52:17: error: too many arguments to function 'when_receiving_data'
+   52 |                 when_receiving_data(buffer, buffer_size, &USART1_PORT);
+      |                 ^~~~~~~~~~~~~~~~~~~
+../Src/main.c:57:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   57 |                         when_receiving_data_db(buffer, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:57:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+../Src/main.c: In function 'main':
+../Src/main.c:95:29: warning: assignment to 'void (*)(uint8_t *, SerialPort *)' {aka 'void (*)(unsigned char *, struct _SerialPort *)'} from incompatible pointer type 'void (*)(uint8_t *, uint32_t,  SerialPort *)' {aka 'void (*)(unsigned char *, long unsigned int,  struct _SerialPort *)'} [-Wincompatible-pointer-types]
+   95 |         when_receiving_data = &InterruptInputString;                            //set the interrupt handling function
+      |                             ^
+../Src/Integration.c:41:38: warning: implicit declaration of function 'strtol'; did you mean 'strtok'? [-Wimplicit-function-declaration]
+   41 |         uint8_t led_state = (uint8_t)strtol(operand, NULL, 2);
+      |                                      ^~~~~~
+      |                                      strtok
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/Integration.c:47:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   47 |         SerialOutputString(operand, &USART1_PORT);
+      |                            ^~~~~~~
+      |                            |
+      |                            char *
+../Inc/serial.h:61:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   61 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/Integration.c:48:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   48 |         SerialOutputString("\r\n", &USART1_PORT);
+      |                            ^~~~~~
+      |                            |
+      |                            char *
+../Inc/serial.h:61:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   61 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:216:33: warning: unused variable 'discard' [-Wunused-variable]
+  216 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/Integration.c:51:39: warning: implicit declaration of function 'strtoul'; did you mean 'strtok'? [-Wimplicit-function-declaration]
+   51 |         uint32_t duration = (uint32_t)strtoul(operand, NULL, 10);
+      |                                       ^~~~~~~
+      |                                       strtok
+../Src/serial.c: In function 'InputLogic':
+../Src/Integration.c:59:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   59 |         SerialOutputString("Unknown command\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:261:31: warning: statement with no effect [-Wunused-value]
+  261 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Inc/serial.h:61:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   61 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/serial.c:265:31: warning: statement with no effect [-Wunused-value]
+  265 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+make: *** [Src/subdir.mk:37: Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j7 all" terminated with exit code 2. Build might be incomplete.
+08:22:54 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/main.c:57:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   57 |                         when_receiving_data_db(buffer, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:57:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1664	     44	   1628	   3336	    d08	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+08:23:23 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-size  C\ Integration.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1664	     44	   1628	   3336	    d08	C Integration.elf
+Finished building: default.size.stdout
+ 
+08:24:33 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-size  C\ Integration.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1664	     44	   1628	   3336	    d08	C Integration.elf
+Finished building: default.size.stdout
+ 
+08:26:10 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:213:33: warning: unused variable 'discard' [-Wunused-variable]
+  213 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:259:31: warning: statement with no effect [-Wunused-value]
+  259 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:263:31: warning: statement with no effect [-Wunused-value]
+  263 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1660	     44	   1628	   3332	    d04	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+08:29:15 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:213:33: warning: unused variable 'discard' [-Wunused-variable]
+  213 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:259:31: warning: statement with no effect [-Wunused-value]
+  259 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:263:31: warning: statement with no effect [-Wunused-value]
+  263 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1648	     44	   1628	   3320	    cf8	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+08:33:03 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:213:33: warning: unused variable 'discard' [-Wunused-variable]
+  213 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:259:31: warning: statement with no effect [-Wunused-value]
+  259 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:263:31: warning: statement with no effect [-Wunused-value]
+  263 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1632	     44	   1628	   3304	    ce8	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+08:46:30 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/main.c:57:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   57 |                         when_receiving_data_db(buffer, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:57:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:212:33: warning: unused variable 'discard' [-Wunused-variable]
+  212 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:257:31: warning: statement with no effect [-Wunused-value]
+  257 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:261:31: warning: statement with no effect [-Wunused-value]
+  261 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1516	     52	   1628	   3196	    c7c	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+08:46:53 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/main.c:57:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   57 |                         when_receiving_data_db(buffer, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:57:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1712	     52	   1628	   3392	    d40	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+08:49:00 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:205:33: warning: unused variable 'discard' [-Wunused-variable]
+  205 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:250:31: warning: statement with no effect [-Wunused-value]
+  250 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:254:31: warning: statement with no effect [-Wunused-value]
+  254 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1696	     52	   1628	   3376	    d30	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+20:01:47 **** Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/main.c:56:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   56 |                         when_receiving_data_db(buffer, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:56:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:202:33: warning: unused variable 'discard' [-Wunused-variable]
+  202 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:236:31: warning: statement with no effect [-Wunused-value]
+  236 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:240:31: warning: statement with no effect [-Wunused-value]
+  240 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1888	     48	   1632	   3568	    df0	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+20:06:00 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:202:33: warning: unused variable 'discard' [-Wunused-variable]
+  202 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'SerialInputStringdb':
+../Src/serial.c:218:33: warning: unused variable 'discard' [-Wunused-variable]
+  218 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:236:31: warning: statement with no effect [-Wunused-value]
+  236 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:240:31: warning: statement with no effect [-Wunused-value]
+  240 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1916	     48	   1632	   3596	    e0c	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+20:08:20 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:202:33: warning: unused variable 'discard' [-Wunused-variable]
+  202 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'SerialInputStringdb':
+../Src/serial.c:218:33: warning: unused variable 'discard' [-Wunused-variable]
+  218 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c:224:12: error: 'discard' undeclared (first use in this function)
+  224 |         if(discard == '\n'){
+      |            ^~~~~~~
+../Src/serial.c:224:12: note: each undeclared identifier is reported only once for each function it appears in
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:237:31: warning: statement with no effect [-Wunused-value]
+  237 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:241:31: warning: statement with no effect [-Wunused-value]
+  241 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+make: *** [Src/subdir.mk:37: Src/serial.o] Error 1
+"make -j7 all" terminated with exit code 2. Build might be incomplete.
+20:08:46 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:202:33: warning: unused variable 'discard' [-Wunused-variable]
+  202 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:238:31: warning: statement with no effect [-Wunused-value]
+  238 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:242:31: warning: statement with no effect [-Wunused-value]
+  242 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1880	     48	   1632	   3560	    de8	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+20:14:27 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-size  C\ Integration.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1880	     48	   1632	   3560	    de8	C Integration.elf
+Finished building: default.size.stdout
+ 
+20:15:51 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:202:33: warning: unused variable 'discard' [-Wunused-variable]
+  202 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'SerialInputStringdb':
+../Src/serial.c:211:17: warning: variable 'discard' set but not used [-Wunused-but-set-variable]
+  211 |         uint8_t discard;
+      |                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:238:31: warning: statement with no effect [-Wunused-value]
+  238 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:242:31: warning: statement with no effect [-Wunused-value]
+  242 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1900	     48	   1632	   3580	    dfc	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+20:17:59 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:202:33: warning: unused variable 'discard' [-Wunused-variable]
+  202 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:238:31: warning: statement with no effect [-Wunused-value]
+  238 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:242:31: warning: statement with no effect [-Wunused-value]
+  242 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1880	     48	   1632	   3560	    de8	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+20:20:44 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-size  C\ Integration.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1880	     48	   1632	   3560	    de8	C Integration.elf
+Finished building: default.size.stdout
+ 
+20:21:35 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-size  C\ Integration.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1880	     48	   1632	   3560	    de8	C Integration.elf
+Finished building: default.size.stdout
+ 
+20:23:43 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-size  C\ Integration.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1880	     48	   1632	   3560	    de8	C Integration.elf
+Finished building: default.size.stdout
+ 
+20:26:35 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:202:33: warning: unused variable 'discard' [-Wunused-variable]
+  202 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'SerialInputStringdb':
+../Src/serial.c:217:86: error: expected ';' before 'bufferCounter'
+  217 |                         buffer[uartKernel][bufferCounter[uartKernel]] = received_char
+      |                                                                                      ^
+      |                                                                                      ;
+  218 |                         bufferCounter[uartKernel] ++;
+      |                         ~~~~~~~~~~~~~                                                 
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:236:31: warning: statement with no effect [-Wunused-value]
+  236 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:240:31: warning: statement with no effect [-Wunused-value]
+  240 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+make: *** [Src/subdir.mk:37: Src/serial.o] Error 1
+"make -j7 all" terminated with exit code 2. Build might be incomplete.
+20:26:43 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:202:33: warning: unused variable 'discard' [-Wunused-variable]
+  202 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:236:31: warning: statement with no effect [-Wunused-value]
+  236 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:240:31: warning: statement with no effect [-Wunused-value]
+  240 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1852	     48	   1632	   3532	    dcc	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+20:28:02 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:202:33: warning: unused variable 'discard' [-Wunused-variable]
+  202 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:233:31: warning: statement with no effect [-Wunused-value]
+  233 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:237:31: warning: statement with no effect [-Wunused-value]
+  237 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1836	     48	   1632	   3516	    dbc	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+20:28:41 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-size  C\ Integration.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1836	     48	   1632	   3516	    dbc	C Integration.elf
+Finished building: default.size.stdout
+ 
+20:39:30 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-size  C\ Integration.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1836	     48	   1632	   3516	    dbc	C Integration.elf
+Finished building: default.size.stdout
+ 
+20:40:29 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:202:33: warning: unused variable 'discard' [-Wunused-variable]
+  202 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:233:31: warning: statement with no effect [-Wunused-value]
+  233 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:237:31: warning: statement with no effect [-Wunused-value]
+  237 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1836	     48	   1632	   3516	    dbc	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+20:42:19 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:202:33: warning: unused variable 'discard' [-Wunused-variable]
+  202 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:237:31: warning: statement with no effect [-Wunused-value]
+  237 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:241:31: warning: statement with no effect [-Wunused-value]
+  241 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1852	     48	   1632	   3532	    dcc	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+20:43:09 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:202:33: warning: unused variable 'discard' [-Wunused-variable]
+  202 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:236:31: warning: statement with no effect [-Wunused-value]
+  236 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:240:31: warning: statement with no effect [-Wunused-value]
+  240 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1856	     48	   1632	   3536	    dd0	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+20:44:51 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:202:33: warning: unused variable 'discard' [-Wunused-variable]
+  202 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:236:31: warning: statement with no effect [-Wunused-value]
+  236 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:240:31: warning: statement with no effect [-Wunused-value]
+  240 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1856	     48	   1632	   3536	    dd0	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+20:45:44 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:202:33: warning: unused variable 'discard' [-Wunused-variable]
+  202 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:236:31: warning: statement with no effect [-Wunused-value]
+  236 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:240:31: warning: statement with no effect [-Wunused-value]
+  240 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1856	     48	   1632	   3536	    dd0	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+20:46:56 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:202:33: warning: unused variable 'discard' [-Wunused-variable]
+  202 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:237:31: warning: statement with no effect [-Wunused-value]
+  237 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:241:31: warning: statement with no effect [-Wunused-value]
+  241 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1864	     48	   1632	   3544	    dd8	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+20:51:27 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:202:33: warning: unused variable 'discard' [-Wunused-variable]
+  202 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   3816	    128	   1952	   5896	   1708	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+20:52:02 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:202:33: warning: unused variable 'discard' [-Wunused-variable]
+  202 |                         uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                                 ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:237:31: warning: statement with no effect [-Wunused-value]
+  237 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:242:31: warning: statement with no effect [-Wunused-value]
+  242 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   3816	    128	   1952	   5896	   1708	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+21:17:39 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/main.c:56:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   56 |                         when_receiving_data_db(buffer, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:56:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:187:26: warning: suggest parentheses around '&&' within '||' [-Wparentheses]
+  187 |         if((counter > 0) && (buffer[counter - 1] == '#') || counter >= buffer_size){
+      |            ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Src/serial.c:188:25: warning: unused variable 'discard' [-Wunused-variable]
+  188 |                 uint8_t discard = (uint8_t)(serial_port->UART->RDR);
+      |                         ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:223:31: warning: statement with no effect [-Wunused-value]
+  223 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:228:31: warning: statement with no effect [-Wunused-value]
+  228 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1640	     44	   1628	   3312	    cf0	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+07:44:13 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:187:26: warning: suggest parentheses around '&&' within '||' [-Wparentheses]
+  187 |         if((counter > 0) && (buffer[counter - 1] == '#') || counter >= buffer_size){
+      |            ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Src/serial.c:188:25: warning: unused variable 'discard' [-Wunused-variable]
+  188 |                 uint8_t discard = (uint8_t)(serial_port->UART->RDR);    //discard excess characters
+      |                         ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:224:31: warning: statement with no effect [-Wunused-value]
+  224 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:229:31: warning: statement with no effect [-Wunused-value]
+  229 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1640	     44	   1628	   3312	    cf0	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+07:44:41 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/main.c:56:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   56 |                         when_receiving_data_db(buffer, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:56:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   3836	    128	   1952	   5916	   171c	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+07:48:08 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-size  C\ Integration.elf 
+   text	   data	    bss	    dec	    hex	filename
+   3836	    128	   1952	   5916	   171c	C Integration.elf
+Finished building: default.size.stdout
+ 
+07:50:23 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:187:26: warning: suggest parentheses around '&&' within '||' [-Wparentheses]
+  187 |         if((counter > 0) && (buffer[counter - 1] == '#') || counter >= buffer_size){
+      |            ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Src/serial.c:188:25: warning: unused variable 'discard' [-Wunused-variable]
+  188 |                 uint8_t discard = (uint8_t)(serial_port->UART->RDR);    //discard excess characters
+      |                         ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:224:31: warning: statement with no effect [-Wunused-value]
+  224 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:229:31: warning: statement with no effect [-Wunused-value]
+  229 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   3836	    128	   1952	   5916	   171c	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+07:52:09 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:187:26: warning: suggest parentheses around '&&' within '||' [-Wparentheses]
+  187 |         if((counter > 0) && (buffer[counter - 1] == '#') || counter >= buffer_size){
+      |            ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Src/serial.c:188:25: warning: unused variable 'discard' [-Wunused-variable]
+  188 |                 uint8_t discard = (uint8_t)(serial_port->UART->RDR);    //discard excess characters
+      |                         ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:224:31: warning: statement with no effect [-Wunused-value]
+  224 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:229:31: warning: statement with no effect [-Wunused-value]
+  229 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1884	     48	   1632	   3564	    dec	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+07:53:26 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-size  C\ Integration.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1884	     48	   1632	   3564	    dec	C Integration.elf
+Finished building: default.size.stdout
+ 
+07:57:16 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/Integration.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/Integration.d" -MT"Src/Integration.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/Integration.o"
+arm-none-eabi-gcc "../Src/led.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/led.d" -MT"Src/led.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/led.o"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+arm-none-eabi-gcc "../Src/timers.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/timers.d" -MT"Src/timers.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/timers.o"
+../Src/Integration.c: In function 'ParseInput':
+../Src/Integration.c:18:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   18 |         SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+In file included from ../Src/Integration.c:8:
+../Inc/serial.h:53:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   53 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/Integration.c:41:38: warning: implicit declaration of function 'strtol'; did you mean 'strtok'? [-Wimplicit-function-declaration]
+   41 |         uint8_t led_state = (uint8_t)strtol(operand, NULL, 2);
+      |                                      ^~~~~~
+      |                                      strtok
+../Src/Integration.c:47:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   47 |         SerialOutputString(operand, &USART1_PORT);
+      |                            ^~~~~~~
+      |                            |
+      |                            char *
+../Inc/serial.h:53:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   53 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/Integration.c:48:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   48 |         SerialOutputString("\r\n", &USART1_PORT);
+      |                            ^~~~~~
+      |                            |
+      |                            char *
+../Inc/serial.h:53:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   53 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:187:26: warning: suggest parentheses around '&&' within '||' [-Wparentheses]
+  187 |         if((counter > 0) && (buffer[counter - 1] == '#') || counter >= buffer_size){
+      |            ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Src/serial.c:188:25: warning: unused variable 'discard' [-Wunused-variable]
+  188 |                 uint8_t discard = (uint8_t)(serial_port->UART->RDR);    //discard excess characters
+      |                         ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/serial.c:223:31: warning: statement with no effect [-Wunused-value]
+  223 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:228:31: warning: statement with no effect [-Wunused-value]
+  228 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/Integration.c:51:39: warning: implicit declaration of function 'strtoul'; did you mean 'strtok'? [-Wimplicit-function-declaration]
+   51 |         uint32_t duration = (uint32_t)strtoul(operand, NULL, 10);
+      |                                       ^~~~~~~
+      |                                       strtok
+../Src/Integration.c:59:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   59 |         SerialOutputString("Unknown command\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+../Inc/serial.h:53:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   53 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/main.c:35:40: error: 'uartKernel' undeclared here (not in a function)
+   35 | uint8_t buffer_size_db = sizeof(buffer[uartKernel])/sizeof(buffer[uartKernel][0]) - 1;
+      |                                        ^~~~~~~~~~
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/main.c:57:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   57 |                         when_receiving_data_db(buffer, buffer_size_db, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:57:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+../Src/main.c:57:56: warning: passing argument 2 of 'when_receiving_data_db' makes pointer from integer without a cast [-Wint-conversion]
+   57 |                         when_receiving_data_db(buffer, buffer_size_db, &USART1_PORT);
+      |                                                        ^~~~~~~~~~~~~~
+      |                                                        |
+      |                                                        uint8_t {aka unsigned char}
+../Src/main.c:57:56: note: expected 'SerialPort *' {aka 'struct _SerialPort *'} but argument is of type 'uint8_t' {aka 'unsigned char'}
+../Src/main.c:57:25: error: too many arguments to function 'when_receiving_data_db'
+   57 |                         when_receiving_data_db(buffer, buffer_size_db, &USART1_PORT);
+      |                         ^~~~~~~~~~~~~~~~~~~~~~
+make: *** [Src/subdir.mk:37: Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j7 all" terminated with exit code 2. Build might be incomplete.
+07:57:43 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/main.c:35:40: error: 'uartKernel' undeclared here (not in a function)
+   35 | uint8_t buffer_size_db = sizeof(buffer[uartKernel])/sizeof(buffer[uartKernel][0]) - 1;
+      |                                        ^~~~~~~~~~
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/main.c:57:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   57 |                         when_receiving_data_db(buffer, buffer_size_db, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:57:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+make: *** [Src/subdir.mk:37: Src/main.o] Error 1
+"make -j7 all" terminated with exit code 2. Build might be incomplete.
+07:58:00 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/main.c:35:60: error: subscripted value is neither array nor pointer nor vector
+   35 | uint8_t buffer_size_db = sizeof(buffer[0])/sizeof(buffer[0][0]) - 1;
+      |                                                            ^
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/main.c:57:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   57 |                         when_receiving_data_db(buffer, buffer_size_db, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:57:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+make: *** [Src/subdir.mk:37: Src/main.o] Error 1
+"make -j7 all" terminated with exit code 2. Build might be incomplete.
+07:58:18 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/main.c:57:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   57 |                         when_receiving_data_db(buffer, buffer_size_db, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:57:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1704	     56	   1624	   3384	    d38	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+07:59:28 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/Integration.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/Integration.d" -MT"Src/Integration.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/Integration.o"
+arm-none-eabi-gcc "../Src/led.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/led.d" -MT"Src/led.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/led.o"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+arm-none-eabi-gcc "../Src/timers.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/timers.d" -MT"Src/timers.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/timers.o"
+../Src/Integration.c: In function 'ParseInput':
+../Src/Integration.c:18:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   18 |         SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+In file included from ../Src/Integration.c:8:
+../Inc/serial.h:48:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   48 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/main.c:57:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   57 |                         when_receiving_data_db(buffer, buffer_size_db, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:57:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!";
+      |                      ^~~~~~~~~~~
+../Src/Integration.c:41:38: warning: implicit declaration of function 'strtol'; did you mean 'strtok'? [-Wimplicit-function-declaration]
+   41 |         uint8_t led_state = (uint8_t)strtol(operand, NULL, 2);
+      |                                      ^~~~~~
+      |                                      strtok
+../Src/Integration.c:47:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   47 |         SerialOutputString(operand, &USART1_PORT);
+      |                            ^~~~~~~
+      |                            |
+      |                            char *
+../Inc/serial.h:48:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   48 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/Integration.c:48:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   48 |         SerialOutputString("\r\n", &USART1_PORT);
+      |                            ^~~~~~
+      |                            |
+      |                            char *
+../Inc/serial.h:48:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   48 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:187:26: warning: suggest parentheses around '&&' within '||' [-Wparentheses]
+  187 |         if((counter > 0) && (buffer[counter - 1] == '#') || counter >= buffer_size){
+      |            ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Src/serial.c:188:25: warning: unused variable 'discard' [-Wunused-variable]
+  188 |                 uint8_t discard = (uint8_t)(serial_port->UART->RDR);    //discard excess characters
+      |                         ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:223:31: warning: statement with no effect [-Wunused-value]
+  223 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:228:31: warning: statement with no effect [-Wunused-value]
+  228 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/Integration.c:51:39: warning: implicit declaration of function 'strtoul'; did you mean 'strtok'? [-Wimplicit-function-declaration]
+   51 |         uint32_t duration = (uint32_t)strtoul(operand, NULL, 10);
+      |                                       ^~~~~~~
+      |                                       strtok
+../Src/Integration.c:59:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   59 |         SerialOutputString("Unknown command\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+../Inc/serial.h:48:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   48 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1704	     56	   1624	   3384	    d38	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+08:03:31 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/main.c:57:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   57 |                         when_receiving_data_db(buffer, buffer_size_db, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:57:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1720	     56	   1624	   3400	    d48	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+08:04:04 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-size  C\ Integration.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1720	     56	   1624	   3400	    d48	C Integration.elf
+Finished building: default.size.stdout
+ 
+08:04:37 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!\n";
+      |                      ^~~~~~~~~~~~~
+../Src/serial.c: In function 'InterruptInputString':
+../Src/serial.c:187:26: warning: suggest parentheses around '&&' within '||' [-Wparentheses]
+  187 |         if((counter > 0) && (buffer[counter - 1] == '#') || counter >= buffer_size){
+      |            ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Src/serial.c:188:25: warning: unused variable 'discard' [-Wunused-variable]
+  188 |                 uint8_t discard = (uint8_t)(serial_port->UART->RDR);    //discard excess characters
+      |                         ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:223:31: warning: statement with no effect [-Wunused-value]
+  223 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/serial.c:228:31: warning: statement with no effect [-Wunused-value]
+  228 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1720	     56	   1624	   3400	    d48	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 
+08:05:13 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-size  C\ Integration.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1720	     56	   1624	   3400	    d48	C Integration.elf
+Finished building: default.size.stdout
+ 
+08:38:10 **** Incremental Build of configuration Debug for project C Integration ****
+make -j7 all 
+arm-none-eabi-gcc "../Src/Integration.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/Integration.d" -MT"Src/Integration.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/Integration.o"
+arm-none-eabi-gcc "../Src/led.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/led.d" -MT"Src/led.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/led.o"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/serial.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/serial.d" -MT"Src/serial.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/serial.o"
+arm-none-eabi-gcc "../Src/timers.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F303VCTx -DSTM32 -DSTM32F3 -DSTM32F3DISCOVERY -c -I../Inc -I"/Users/haileythill-turke/Documents/GitHub/MTRX2700-2025/stm32f303-definitions/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/timers.d" -MT"Src/timers.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/timers.o"
+../Src/serial.c:38:22: warning: pointer targets in initialization of 'uint8_t *' {aka 'unsigned char *'} from 'char *' differ in signedness [-Wpointer-sign]
+   38 | uint8_t *send_data = "send it!!\n";
+      |                      ^~~~~~~~~~~~~
+../Src/Integration.c: In function 'ParseInput':
+../Src/serial.c: In function 'InterruptInputString':
+../Src/Integration.c:18:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   18 |         SerialOutputString("Invalid command format\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+../Src/serial.c:187:26: warning: suggest parentheses around '&&' within '||' [-Wparentheses]
+  187 |         if((counter > 0) && (buffer[counter - 1] == terminating) || counter >= buffer_size){
+      |            ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from ../Src/Integration.c:8:
+../Inc/serial.h:48:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   48 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/serial.c:188:25: warning: unused variable 'discard' [-Wunused-variable]
+  188 |                 uint8_t discard = (uint8_t)(serial_port->UART->RDR);    //discard excess characters
+      |                         ^~~~~~~
+../Src/main.c:28:2: warning: #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use." [-Wcpp]
+   28 | #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+      |  ^~~~~~~
+../Src/serial.c: In function 'InputLogic':
+../Src/serial.c:223:31: warning: statement with no effect [-Wunused-value]
+  223 |                 still_reading == 1;                     //let's program know it's currently reading from one buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/main.c: In function 'USART1_EXTI25_IRQHandler':
+../Src/serial.c:228:31: warning: statement with no effect [-Wunused-value]
+  228 |                 still_reading == 0;                     //lets program know it's done reading from that buffer
+      |                 ~~~~~~~~~~~~~~^~~~
+../Src/main.c:60:48: warning: passing argument 1 of 'when_receiving_data_db' from incompatible pointer type [-Wincompatible-pointer-types]
+   60 |                         when_receiving_data_db(buffer, buffer_size_db, &USART1_PORT);
+      |                                                ^~~~~~
+      |                                                |
+      |                                                uint8_t * {aka unsigned char *}
+../Src/main.c:60:48: note: expected 'uint8_t (*)[32]' {aka 'unsigned char (*)[32]'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+../Src/Integration.c:41:38: warning: implicit declaration of function 'strtol'; did you mean 'strtok'? [-Wimplicit-function-declaration]
+   41 |         uint8_t led_state = (uint8_t)strtol(operand, NULL, 2);
+      |                                      ^~~~~~
+      |                                      strtok
+../Src/Integration.c:47:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   47 |         SerialOutputString(operand, &USART1_PORT);
+      |                            ^~~~~~~
+      |                            |
+      |                            char *
+../Inc/serial.h:48:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   48 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/Integration.c:48:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   48 |         SerialOutputString("\r\n", &USART1_PORT);
+      |                            ^~~~~~
+      |                            |
+      |                            char *
+../Inc/serial.h:48:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   48 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+../Src/Integration.c:51:39: warning: implicit declaration of function 'strtoul'; did you mean 'strtok'? [-Wimplicit-function-declaration]
+   51 |         uint32_t duration = (uint32_t)strtoul(operand, NULL, 10);
+      |                                       ^~~~~~~
+      |                                       strtok
+../Src/Integration.c:59:28: warning: pointer targets in passing argument 1 of 'SerialOutputString' differ in signedness [-Wpointer-sign]
+   59 |         SerialOutputString("Unknown command\r\n", &USART1_PORT);
+      |                            ^~~~~~~~~~~~~~~~~~~~~
+      |                            |
+      |                            char *
+../Inc/serial.h:48:34: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+   48 | void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
+      |                         ~~~~~~~~~^~
+arm-none-eabi-gcc -o "C Integration.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/haileythill-turke/Documents/GitHub/MTRX2700-Lab-2-Group-1/C Integration/STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="C Integration.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: C Integration.elf
+ 
+arm-none-eabi-size  C\ Integration.elf 
+arm-none-eabi-objdump -h -S C\ Integration.elf  > "C Integration.list"
+   text	   data	    bss	    dec	    hex	filename
+   1664	     48	   1624	   3336	    d08	C Integration.elf
+Finished building: default.size.stdout
+ 
+Finished building: C Integration.list
+ 

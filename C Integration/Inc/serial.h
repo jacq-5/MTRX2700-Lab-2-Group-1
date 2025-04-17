@@ -15,20 +15,6 @@ typedef void (*callback_t)(void);
 //   they are fixed, unique values)
 extern SerialPort USART1_PORT;
 
-
-//define a buffer
-/*extern uint8_t buffer[2][32];
-extern uint8_t bufferCounter[2][1];
-extern uint8_t uartUser;
-extern uint8_t uartKernel;*/
-
-
-
-//definitions for TXI
-extern uint8_t *send_data;
-extern uint8_t txIndex;
-extern uint8_t txLength;
-
 // The user might want to select the baud rate
 enum {
   BAUD_9600,
@@ -38,6 +24,7 @@ enum {
   BAUD_115200
 };
 
+//led functions
 void initialise_leds(void);
 
 void set_led_state(uint8_t state);
@@ -60,10 +47,9 @@ void SerialInputChar(uint8_t *data, SerialPort *serial_port);
 // Input: pointer to a NULL-TERMINATED string (if not null terminated, there will be problems)
 void SerialOutputString(uint8_t *pt, SerialPort *serial_port);
 
-//reads characters in to a buffer
-void SerialInputStringdb(uint8_t buffer[][32], SerialPort *serial_port);
+void SerialInputStringdb(uint8_t buffer[][32], uint32_t buffer_size, SerialPort *serial_port);
 
-void SerialInputString(uint8_t *buffer, SerialPort *serial_port, uint8_t terminating);
+void SerialInputString(uint8_t *buffer, uint32_t buffer_size, SerialPort *serial_port, uint8_t terminating);
 
 void callback_function(uint8_t *rx_string, uint32_t counter);
 
@@ -71,14 +57,13 @@ void InterruptOutputString();
 
 void InterruptOutputChar();
 
-
 void InputLogic(uint8_t buffer[][32]);
 
 extern void (*when_sending_data)();
 
 void switch_buffers();
 
-void InterruptInputString(uint8_t *buffer, SerialPort *serial_port);
+void InterruptInputString(uint8_t buffer[], uint8_t terminating, uint32_t buffer_size, SerialPort *serial_port);
 
 //timer functions
 
